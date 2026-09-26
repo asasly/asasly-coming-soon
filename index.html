@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ASASLY — Knowledge. Learning. Technology.</title>
+  <meta name="description" content="ASASLY — Knowledge. Learning. Technology. Coming soon." />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#F7F9FC" />
+  <link rel="canonical" href="https://asasly.com/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ASASLY" />
+  <meta property="og:title" content="ASASLY — Knowledge. Learning. Technology." />
+  <meta property="og:description" content="ASASLY — Knowledge. Learning. Technology. Coming soon." />
+  <meta property="og:url" content="https://asasly.com/" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="ASASLY — Knowledge. Learning. Technology." />
+  <meta name="twitter:description" content="ASASLY — Knowledge. Learning. Technology. Coming soon." />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="512x512" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <style>
+    :root{
+      --bg:#f7f9fc;
+      --ink:#1f3555;
+      --ink-soft:#50627a;
+      --blue:#5B9BD5;
+      --blue-dark:#2f5f91;
+      --blue-deep:#183a63;
+      --blue-pale:#dbe9f5;
+      --line:rgba(47,95,145,.22);
+      --shadow:0 24px 70px rgba(37,65,95,.12);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 18% 16%, rgba(91,155,213,.09), transparent 30%),
+        radial-gradient(circle at 82% 76%, rgba(47,95,145,.08), transparent 28%),
+        linear-gradient(180deg,#fbfcfe 0%, var(--bg) 100%);
+      color:var(--ink);
+      overflow:hidden;
+    }
+
+    .page{
+      position:relative;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:32px;
+      isolation:isolate;
+    }
+
+    .hero{
+      position:relative;
+      width:min(1100px, 94vw);
+      min-height:min(720px, 88vh);
+      border:1px solid rgba(24,58,99,.08);
+      border-radius:28px;
+      background:rgba(255,255,255,.62);
+      backdrop-filter: blur(10px);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .content{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      padding:48px;
+      z-index:4;
+      text-align:center;
+    }
+
+    .content-inner{
+      transform:translateY(-2px);
+    }
+
+    .brand{
+      margin:0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:clamp(68px, 10vw, 138px);
+      font-weight:500;
+      letter-spacing:.12em;
+      line-height:.92;
+      color:var(--blue-deep);
+      text-shadow:0 8px 24px rgba(24,58,99,.08);
+    }
+
+    .tagline{
+      margin:28px 0 0;
+      font-size:clamp(15px, 1.7vw, 22px);
+      letter-spacing:.22em;
+      font-weight:400;
+      color:var(--ink-soft);
+    }
+
+    .divider{
+      width:66px;
+      height:2px;
+      margin:24px auto 18px;
+      background:linear-gradient(90deg,transparent,var(--blue-dark),transparent);
+    }
+
+    .soon{
+      margin:0;
+      font-size:clamp(13px, 1.5vw, 18px);
+      letter-spacing:.42em;
+      font-weight:600;
+      color:var(--blue-dark);
+    }
+
+    .soon-gap{
+      height:clamp(36px, 5vh, 58px);
+    }
+
+    .orb{
+      position:absolute;
+      border-radius:50%;
+      z-index:1;
+      pointer-events:none;
+    }
+
+    .orb-a{
+      width:330px;height:330px;
+      left:-105px;top:-95px;
+      background:radial-gradient(circle at 62% 58%, rgba(91,155,213,.68), rgba(91,155,213,.22) 45%, rgba(91,155,213,.06) 68%, transparent 72%);
+      filter:blur(.2px);
+    }
+
+    .orb-b{
+      width:145px;height:145px;
+      left:96px;top:66px;
+      background:radial-gradient(circle at 35% 30%, #7fb1df 0%, #5B9BD5 38%, #2f5f91 82%);
+      box-shadow:inset -18px -18px 34px rgba(24,58,99,.18);
+      opacity:.9;
+    }
+
+    .orb-c{
+      width:64px;height:64px;
+      left:222px;top:96px;
+      border:1px solid rgba(47,95,145,.22);
+      background:rgba(255,255,255,.18);
+    }
+
+    .arc, .arc2, .arc3{
+      position:absolute;
+      border:1px solid var(--line);
+      border-radius:50%;
+      z-index:1;
+      pointer-events:none;
+    }
+
+    .arc{width:560px;height:560px;left:-260px;top:-180px}
+    .arc2{width:500px;height:500px;right:-250px;top:-200px}
+    .arc3{width:520px;height:520px;right:-250px;bottom:-260px}
+
+    .dot{
+      position:absolute;
+      width:11px;height:11px;
+      border-radius:50%;
+      background:var(--blue-dark);
+      box-shadow:0 0 0 10px rgba(91,155,213,.05);
+      z-index:2;
+    }
+
+    .dot.one{left:58px;top:293px}
+    .dot.two{right:188px;top:104px}
+    .dot.three{right:68px;bottom:88px}
+
+    .line-v{
+      position:absolute;
+      top:18px;bottom:22px;
+      width:1px;
+      background:linear-gradient(transparent,var(--line),transparent);
+      z-index:1;
+    }
+    .line-v.l{left:58px}
+    .line-v.r{right:188px}
+
+    .waves{
+      position:absolute;
+      inset:auto -9% -22% -8%;
+      height:52%;
+      z-index:2;
+      pointer-events:none;
+      transform:rotate(-3deg);
+    }
+
+    .wave{
+      position:absolute;
+      left:0;right:0;
+      height:120px;
+      border-radius:50%;
+      filter:blur(.05px);
+    }
+
+    .wave.w1{
+      bottom:84px;
+      background:linear-gradient(90deg,rgba(91,155,213,.02),rgba(91,155,213,.22),rgba(47,95,145,.34),rgba(91,155,213,.05));
+      transform:skewY(-8deg);
+    }
+
+    .wave.w2{
+      bottom:48px;
+      background:linear-gradient(90deg,rgba(91,155,213,.02),rgba(91,155,213,.34),rgba(47,95,145,.55),rgba(91,155,213,.08));
+      transform:skewY(6deg);
+      opacity:.75;
+    }
+
+    .wave.w3{
+      bottom:10px;
+      background:linear-gradient(90deg,rgba(91,155,213,.00),rgba(91,155,213,.22),rgba(24,58,99,.48),rgba(91,155,213,.05));
+      transform:skewY(-4deg);
+      opacity:.55;
+    }
+
+    .threads{
+      position:absolute;
+      inset:auto 4% 7% 12%;
+      height:120px;
+      z-index:3;
+      opacity:.42;
+      background:
+        repeating-linear-gradient(
+          166deg,
+          transparent 0 7px,
+          rgba(47,95,145,.25) 7px 8px
+        );
+      mask-image:linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+      transform:skewY(-5deg);
+      pointer-events:none;
+    }
+
+    @media (max-width: 700px){
+      .page{padding:12px}
+
+      .hero{
+        min-height:92vh;
+        border-radius:18px;
+      }
+
+      .content{
+        padding:24px 18px;
+      }
+
+      .content-inner{
+        width:100%;
+        max-width:340px;
+        transform:translateY(5.5vh);
+      }
+
+      .brand{
+        font-size:clamp(50px, 15.5vw, 64px);
+        letter-spacing:.055em;
+        line-height:.96;
+        white-space:nowrap;
+      }
+
+      .tagline{
+        margin-top:20px;
+        font-size:clamp(12px, 3.35vw, 14px);
+        letter-spacing:.075em;
+        line-height:1.55;
+        white-space:nowrap;
+      }
+
+      .soon{
+        font-size:clamp(11px, 3vw, 13px);
+        letter-spacing:.30em;
+      }
+
+      .soon-gap{
+        height:clamp(28px, 4.2vh, 40px);
+      }
+
+      .divider{
+        width:50px;
+        margin:18px auto 0;
+      }
+
+      .orb-a{
+        width:240px;height:240px;
+        left:-90px;top:-70px;
+      }
+
+      .orb-b{
+        width:110px;height:110px;
+        left:50px;top:62px;
+      }
+
+      .orb-c{
+        left:145px;top:88px;
+      }
+
+      .line-v.r{right:118px}
+      .dot.two{right:116px}
+
+      .waves{
+        height:44%;
+        bottom:-15%;
+      }
+
+      .threads{
+        inset:auto 1% 5% 5%;
+        height:100px;
+        opacity:.34;
+      }
+    }
+
+    @media (max-height: 430px) and (orientation: landscape){
+      .page{
+        padding:8px 14px;
+      }
+
+      .hero{
+        width:min(1040px, 97vw);
+        min-height:86vh;
+        border-radius:18px;
+      }
+
+      .content{
+        padding:8px 24px;
+      }
+
+      .content-inner{
+        width:auto;
+        max-width:700px;
+        transform:translateY(-5vh);
+      }
+
+      .soon{
+        font-size:clamp(10px, 1.28vw, 12px);
+        letter-spacing:.30em;
+      }
+
+      .soon-gap{
+        height:clamp(12px, 2.1vh, 18px);
+      }
+
+      .brand{
+        font-size:clamp(56px, 8.2vw, 88px);
+        letter-spacing:.075em;
+        line-height:.92;
+        white-space:nowrap;
+      }
+
+      .tagline{
+        margin-top:12px;
+        font-size:clamp(11px, 1.55vw, 15px);
+        letter-spacing:.10em;
+        line-height:1.25;
+        white-space:nowrap;
+      }
+
+      .divider{
+        width:44px;
+        margin:12px auto 0;
+      }
+
+      .orb-a{
+        width:150px;height:150px;
+        left:-48px;top:-42px;
+        opacity:.72;
+      }
+
+      .orb-b{
+        width:64px;height:64px;
+        left:38px;top:34px;
+      }
+
+      .orb-c{
+        width:34px;height:34px;
+        left:96px;top:56px;
+      }
+
+      .arc{
+        width:300px;height:300px;
+        left:-140px;top:-105px;
+      }
+
+      .arc2{
+        width:300px;height:300px;
+        right:-145px;top:-120px;
+      }
+
+      .arc3{
+        width:300px;height:300px;
+        right:-150px;bottom:-205px;
+      }
+
+      .dot.one{
+        left:42px;top:225px;
+      }
+
+      .dot.two{
+        right:142px;top:72px;
+      }
+
+      .dot.three{
+        right:70px;bottom:42px;
+      }
+
+      .line-v.l{left:42px}
+      .line-v.r{right:142px}
+
+      .waves{
+        inset:auto -7% -34% -7%;
+        height:18%;
+        opacity:.72;
+      }
+
+      .wave{
+        height:62px;
+      }
+
+      .threads{
+        inset:auto 8% -4% 12%;
+        height:42px;
+        opacity:.10;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-label="ASASLY coming soon">
+      <div class="orb orb-a"></div>
+      <div class="orb orb-b"></div>
+      <div class="orb orb-c"></div>
+
+      <div class="arc"></div>
+      <div class="arc2"></div>
+      <div class="arc3"></div>
+
+      <div class="line-v l"></div>
+      <div class="line-v r"></div>
+
+      <div class="dot one"></div>
+      <div class="dot two"></div>
+      <div class="dot three"></div>
+<div class="waves">
+        <div class="wave w1"></div>
+        <div class="wave w2"></div>
+        <div class="wave w3"></div>
+      </div>
+      <div class="threads"></div>
+
+      <div class="content">
+        <div class="content-inner">
+          <p class="soon">COMING SOON</p>
+          <div class="soon-gap"></div>
+          <h1 class="brand">ASASLY</h1>
+          <p class="tagline">Knowledge. Learning. Technology.</p>
+          <div class="divider"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
