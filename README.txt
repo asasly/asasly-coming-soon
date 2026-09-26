@@ -1,15 +1,8 @@
-ASASLY Coming Soon V1.5
+ASASLY Coming Soon V1.6
 
-Status:
-- Desktop responsive layout approved
-- Mobile Portrait approved
-- Mobile Landscape approved
-- Favicon added
-- Final metadata added
-- Ready for final technical validation and GitHub Pages deployment
-
-Files:
-- index.html
-- favicon.svg
-- favicon.png
-- site.webmanifest
+Production layout update:
+- Full-screen landing page enabled.
+- Removed card-style outer margins and rounded container.
+- Hero fills 100vw x 100vh.
+- Desktop, mobile portrait, and mobile landscape rules retained.
+- Existing design, metadata, favicon, and responsive behavior preserved.
