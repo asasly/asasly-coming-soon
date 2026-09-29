@@ -170,11 +170,12 @@ footer a[aria-current="page"]{color:var(--text);font-weight:500}
 </article>
 
 </main>
-<footer><div class="in"><span>© 2026 Asasly</span><a href="/" data-ui="home">Home</a><a href="/privacy/" data-ui="privacy">Privacy</a><a href="/terms/" data-ui="terms" aria-current="page">Terms</a></div></footer>
+<footer><div class="in"><span>© <span class="yr">2026</span> Asasly</span><a href="/" data-ui="home">Home</a><a href="/privacy/" data-ui="privacy">Privacy</a><a href="/terms/" data-ui="terms" aria-current="page">Terms</a></div></footer>
 <script>
 const TITLES={en:"Terms of Use \u2014 Asasly",ar:"\u0634\u0631\u0648\u0637 \u0627\u0644\u0627\u0633\u062a\u062e\u062f\u0627\u0645 \u2014 Asasly"};
 const UI={"en": {"home": "Home", "privacy": "Privacy", "terms": "Terms"}, "ar": {"home": "الرئيسية", "privacy": "الخصوصية", "terms": "الشروط"}};
 function setLang(code){
+  document.querySelectorAll('.yr').forEach(e=>e.textContent=new Date().getFullYear());
   code = code==='ar' ? 'ar' : 'en';
   document.documentElement.lang=code; document.documentElement.dir = code==='ar' ? 'rtl' : 'ltr';
   document.title=TITLES[code];
