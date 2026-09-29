@@ -28,6 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Reem+Kufi:wght@500;600&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Sans+Bengali:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem("asasly.theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <style>
 :root{
   /* Based on the app's default Navy theme */
@@ -59,6 +60,16 @@
 *,*::before,*::after{box-sizing:inherit}
 html{overflow-x:hidden; scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
 body{margin:0; background:var(--bg); color:var(--text); font-family:var(--font-body); font-size:17px; line-height:1.8}
+/* Colour mode: follows the device by default; the three buttons in the header let the visitor force light or dark */
+:root{color-scheme:light}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){color-scheme:dark} }
+:root[data-theme="dark"]{color-scheme:dark}
+.theme{display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden}
+.theme button{display:grid; place-items:center; width:30px; height:28px; padding:0; border:0; background:transparent; color:var(--text-2); cursor:pointer}
+.theme button svg{width:16px; height:16px}
+.theme button:hover{color:var(--text)}
+.theme button[aria-pressed="true"]{background:var(--accent); color:var(--bg)}
+.theme button:focus-visible{outline:2px solid var(--accent); outline-offset:-3px}
 .brand{font-family:var(--font-display); unicode-bidi:isolate}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
@@ -67,7 +78,8 @@ a{color:inherit}
 .bar{max-width:1080px; margin-inline:auto; padding:14px 24px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:24px}
 .logo{display:flex; align-items:center; gap:10px; text-decoration:none; font-size:24px; font-weight:600; transition:opacity .25s ease, visibility .25s}
 .site-header.at-top .logo{opacity:0; visibility:hidden}
-.nav{display:flex; gap:20px; justify-self:end; font-size:15px; order:3}
+.nav{display:flex; gap:20px; font-size:15px}
+.bar-end{order:3; justify-self:end; display:flex; align-items:center; gap:20px}
 .nav a{text-decoration:none; color:var(--text-2)}
 .nav a:hover{color:var(--text)}
 .lang{position:relative; justify-self:center; order:2}
@@ -157,6 +169,14 @@ footer a{color:var(--text-2); text-decoration:none} footer a:hover{color:var(--t
   .hero{padding-top:16px; padding-bottom:110px}
   .hero-art .wave{height:90px}
 }
+/* Narrow phones: the name, the language button and the three theme buttons must all fit in the bar */
+@media (max-width:480px){
+  .bar{grid-template-columns:auto 1fr auto; gap:8px; padding:10px 12px}
+  .logo{font-size:19px}
+  .lang-btn{padding:5px 10px; gap:6px}
+  .theme button{width:27px; height:26px}
+  .theme button svg{width:15px; height:15px}
+}
 /* Wide screens: three columns — About on one side, the symbol, name and tagline in the middle, the apps on the other side.
    Everything fits in one screen; the columns mirror automatically in right-to-left languages. */
 @media (min-width:1100px){
@@ -201,10 +221,17 @@ footer a{color:var(--text-2); text-decoration:none} footer a:hover{color:var(--t
     <a class="logo" href="#home" aria-label="Asasly">
       <span class="brand" dir="ltr">Asasly</span>
     </a>
-    <nav class="nav">
-      <a href="#about" data-i18n="navAbout"></a>
-      <a href="#products" data-i18n="navProducts"></a>
-    </nav>
+    <div class="bar-end">
+      <nav class="nav">
+        <a href="#about" data-i18n="navAbout"></a>
+        <a href="#products" data-i18n="navProducts"></a>
+      </nav>
+      <div class="theme" role="group" data-i18n-label="themeLabel">
+      <button type="button" data-choice="light" data-i18n-label="themeLight" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg></button>
+      <button type="button" data-choice="system" data-i18n-label="themeSystem" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17a8.5 8.5 0 0 0 0-17z" fill="currentColor" stroke="none"/></svg></button>
+      <button type="button" data-choice="dark" data-i18n-label="themeDark" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+      </div>
+    </div>
     <div class="lang" id="langSwitcher">
       <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="langList">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>
@@ -285,6 +312,10 @@ const translations = {
     "dev": "قريبًا",
     "arabicBody": "ابنِ لغتك العربية من الصفر حتى الإتقان، بسهولة وتدرّج ومتعة، على أساس متين.",
     "langLabel": "اللغة",
+    "themeLabel": "المظهر",
+    "themeLight": "نهاري",
+    "themeSystem": "النظام",
+    "themeDark": "ليلي",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "الخصوصية",
     "legalTerms": "الشروط"
@@ -301,6 +332,10 @@ const translations = {
     "dev": "Coming soon",
     "arabicBody": "Build your Arabic from zero to mastery, easily, gradually and enjoyably, on a solid foundation.",
     "langLabel": "Language",
+    "themeLabel": "Theme",
+    "themeLight": "Light",
+    "themeSystem": "System",
+    "themeDark": "Dark",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "Privacy",
     "legalTerms": "Terms"
@@ -317,6 +352,10 @@ const translations = {
     "dev": "Bientôt",
     "arabicBody": "Construisez votre arabe de zéro jusqu’à la maîtrise, facilement, progressivement et avec plaisir, sur une base solide.",
     "langLabel": "Langue",
+    "themeLabel": "Thème",
+    "themeLight": "Clair",
+    "themeSystem": "Système",
+    "themeDark": "Sombre",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "Confidentialité",
     "legalTerms": "Conditions"
@@ -333,6 +372,10 @@ const translations = {
     "dev": "Próximamente",
     "arabicBody": "Construye tu árabe desde cero hasta el dominio, de forma fácil, gradual y amena, sobre una base sólida.",
     "langLabel": "Idioma",
+    "themeLabel": "Tema",
+    "themeLight": "Claro",
+    "themeSystem": "Sistema",
+    "themeDark": "Oscuro",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "Privacidad",
     "legalTerms": "Términos"
@@ -349,6 +392,10 @@ const translations = {
     "dev": "Segera hadir",
     "arabicBody": "Bangun bahasa Arab Anda dari nol hingga mahir, dengan mudah, bertahap, dan menyenangkan, di atas fondasi yang kokoh.",
     "langLabel": "Bahasa",
+    "themeLabel": "Tema",
+    "themeLight": "Terang",
+    "themeSystem": "Sistem",
+    "themeDark": "Gelap",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "Privasi",
     "legalTerms": "Ketentuan"
@@ -365,6 +412,10 @@ const translations = {
     "dev": "جلد آ رہا ہے",
     "arabicBody": "اپنی عربی کو صفر سے مہارت تک، آسانی، تدریج اور لطف کے ساتھ، ایک مضبوط بنیاد پر تعمیر کریں۔",
     "langLabel": "زبان",
+    "themeLabel": "تھیم",
+    "themeLight": "روشن",
+    "themeSystem": "سسٹم",
+    "themeDark": "تاریک",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "رازداری",
     "legalTerms": "شرائط"
@@ -381,6 +432,10 @@ const translations = {
     "dev": "Yakında",
     "arabicBody": "Arapçanızı sıfırdan ustalığa; kolayca, adım adım ve keyifle, sağlam bir temel üzerinde inşa edin.",
     "langLabel": "Dil",
+    "themeLabel": "Tema",
+    "themeLight": "Açık",
+    "themeSystem": "Sistem",
+    "themeDark": "Koyu",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "Gizlilik",
     "legalTerms": "Koşullar"
@@ -397,6 +452,10 @@ const translations = {
     "dev": "به‌زودی",
     "arabicBody": "عربی خود را از صفر تا تسلط، آسان، گام‌به‌گام و با لذت، بر پایه‌ای استوار بسازید.",
     "langLabel": "زبان",
+    "themeLabel": "پوسته",
+    "themeLight": "روشن",
+    "themeSystem": "سیستم",
+    "themeDark": "تیره",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "حریم خصوصی",
     "legalTerms": "شرایط"
@@ -413,6 +472,10 @@ const translations = {
     "dev": "শিগগিরই আসছে",
     "arabicBody": "আপনার আরবি গড়ে তুলুন শূন্য থেকে দক্ষতা পর্যন্ত — সহজে, ধাপে ধাপে ও আনন্দের সঙ্গে, একটি মজবুত ভিত্তির ওপর।",
     "langLabel": "ভাষা",
+    "themeLabel": "থিম",
+    "themeLight": "হালকা",
+    "themeSystem": "সিস্টেম",
+    "themeDark": "গাঢ়",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "গোপনীয়তা",
     "legalTerms": "শর্তাবলি"
@@ -429,6 +492,10 @@ const translations = {
     "dev": "जल्द आ रहा है",
     "arabicBody": "अपनी अरबी को शून्य से महारत तक, आसानी से, धीरे-धीरे और आनंद के साथ, एक मज़बूत नींव पर गढ़ें।",
     "langLabel": "भाषा",
+    "themeLabel": "थीम",
+    "themeLight": "हल्का",
+    "themeSystem": "सिस्टम",
+    "themeDark": "गहरा",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "गोपनीयता",
     "legalTerms": "शर्तें"
@@ -445,6 +512,10 @@ const translations = {
     "dev": "Em breve",
     "arabicBody": "Construa o seu árabe do zero ao domínio, de forma fácil, gradual e agradável, sobre uma base sólida.",
     "langLabel": "Idioma",
+    "themeLabel": "Tema",
+    "themeLight": "Claro",
+    "themeSystem": "Sistema",
+    "themeDark": "Escuro",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "Privacidade",
     "legalTerms": "Termos"
@@ -461,6 +532,10 @@ const translations = {
     "dev": "Demnächst",
     "arabicBody": "Bauen Sie Ihr Arabisch von null bis zur Beherrschung auf – leicht, schrittweise und mit Freude, auf einem soliden Fundament.",
     "langLabel": "Sprache",
+    "themeLabel": "Darstellung",
+    "themeLight": "Hell",
+    "themeSystem": "System",
+    "themeDark": "Dunkel",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "Datenschutz",
     "legalTerms": "Nutzungsbedingungen"
@@ -477,6 +552,10 @@ const translations = {
     "dev": "Скоро",
     "arabicBody": "Выстройте свой арабский с нуля до уверенного владения — легко, постепенно и с удовольствием, на прочном фундаменте.",
     "langLabel": "Язык",
+    "themeLabel": "Тема",
+    "themeLight": "Светлая",
+    "themeSystem": "Как в системе",
+    "themeDark": "Тёмная",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "Конфиденциальность",
     "legalTerms": "Условия"
@@ -493,6 +572,10 @@ const translations = {
     "dev": "即将推出",
     "arabicBody": "在坚实的基础上，轻松、循序渐进且愉快地，把你的阿拉伯语从零打造到精通。",
     "langLabel": "语言",
+    "themeLabel": "主题",
+    "themeLight": "浅色",
+    "themeSystem": "跟随系统",
+    "themeDark": "深色",
     "footer": "© 2026 Asasly",
     "legalPrivacy": "隐私",
     "legalTerms": "条款"
@@ -563,6 +646,7 @@ function applyLanguage(code) {
   document.querySelectorAll("[data-i18n-label]").forEach(el => {
     el.setAttribute("aria-label", dict[el.dataset.i18nLabel] || "");
   });
+  document.querySelectorAll(".theme button").forEach(b => { b.title = b.getAttribute("aria-label"); });
   const cur = document.getElementById("langCurrent");
   cur.textContent = lang.native; cur.lang = lang.code;
   document.getElementById("langBtn").setAttribute("aria-label", dict.langLabel + ": " + lang.native);
@@ -618,7 +702,31 @@ function initialLanguage() {
   return translations[browser] ? browser : "en";
 }
 
+// Colour mode. No saved choice = follow the device (no data-theme attribute); a saved choice forces light or dark.
+// The key is shared with the launch page, which lives on the same domain.
+const THEME_KEY = "asasly.theme";
+function savedTheme() {
+  let v = null;
+  try { v = localStorage.getItem(THEME_KEY); } catch (e) {}
+  return v === "light" || v === "dark" ? v : "system";
+}
+function showTheme(choice) {
+  const root = document.documentElement;
+  if (choice === "system") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", choice);
+  document.querySelectorAll(".theme button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.choice === choice)));
+}
+function buildTheme() {
+  document.querySelectorAll(".theme button").forEach(b => b.addEventListener("click", () => {
+    const choice = b.dataset.choice;
+    showTheme(choice);
+    try { if (choice === "system") localStorage.removeItem(THEME_KEY); else localStorage.setItem(THEME_KEY, choice); } catch (e) {}
+  }));
+  window.addEventListener("storage", e => { if (e.key === THEME_KEY) showTheme(savedTheme()); });
+  showTheme(savedTheme());
+}
+
 buildSwitcher();
+buildTheme();
 applyLanguage(initialLanguage());
 
 // Pull the name up so its lowercase letters sit just under the sphere, whatever the font size
