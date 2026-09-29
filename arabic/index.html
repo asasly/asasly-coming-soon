@@ -173,7 +173,7 @@ footer a{color:var(--text-2);text-decoration:none;margin:0 10px}
 </main>
 
 <footer><div class="wrap">
-  <div><a href="/" data-i18n="fPlatform">Asasly platform</a> · <a href="#" data-i18n="fPrivacy">Privacy policy</a> · <a href="mailto:hello@asasly.com" data-i18n="fContact">Contact</a></div>
+  <div><a href="/" data-i18n="fPlatform">Asasly platform</a> · <a href="https://asasly.com/privacy/" data-i18n="fPrivacy">Privacy policy</a> · <a href="https://asasly.com/terms/" data-i18n="fTerms">Terms of use</a> · <a href="mailto:hello@asasly.com" data-i18n="fContact">Contact</a></div>
   <div style="margin-top:8px">© 2026 Asasly</div>
 </div></footer>
 
@@ -182,11 +182,11 @@ const T={
  en:{brandSub:"Arabic",topLink:"The Asasly platform",h1sub:"Learn Arabic from the ground up",tagline:"Understanding the Roots",storeSoon:"Coming soon on the",storeSoon2:"Coming soon on",soonNote:"The app is in development. Store links will appear here at launch.",
   whyH:"Why Asasly Arabic",whyLead:"Most apps hand you words to memorise. Asasly builds the ground they stand on.",w1h:"A connected foundation",w1:"Letters, sounds and patterns are taught as one system, so every new word lands on something you already understand.",w2h:"One clear path",w2:"Levels move from the alphabet to reading and understanding, each lesson resting on the one before it.",w3h:"Made for non-Arabs",w3:"Explanations in your own language, and Modern Standard Arabic as the door to the Quran, books and media.",
   appH:"Inside the app",appLead:"Short lessons, a visible path, and progress you can see.",scrLevel:"Level 1 · Mostawa 1",scrL1:"Numbers 0–10",scrL2:"Letters",scrL3:"Greetings",scrLesson:"Lesson 1 · Dars 1",scrQ:"Which one is three?",scrHint:"Tap the right number",navHome:"Home",navProgress:"Progress",navProfile:"Profile",
-  langH:"Learn in your language",langLead:"The first release explains everything in English and Arabic. More languages follow.",fPlatform:"Asasly platform",fPrivacy:"Privacy policy",fContact:"Contact",title:"Asasly Arabic — Understanding the Roots"},
+  langH:"Learn in your language",langLead:"The first release explains everything in English and Arabic. More languages follow.",fPlatform:"Asasly platform",fPrivacy:"Privacy policy",fTerms:"Terms of use",fContact:"Contact",title:"Asasly Arabic — Understanding the Roots"},
  ar:{brandSub:"عربي",topLink:"منصة Asasly",h1sub:"تعلّم العربية من أساسها",tagline:"فهمُ الجذور",storeSoon:"قريبًا على",storeSoon2:"قريبًا على",soonNote:"التطبيق قيد التطوير، وستظهر روابط المتاجر هنا عند الإطلاق.",
   whyH:"لماذا Asasly Arabic",whyLead:"أغلب التطبيقات تعطيك كلمات لتحفظها. Asasly يبني الأرض التي تقف عليها.",w1h:"أساس متصل",w1:"الحروف والأصوات والأنماط تُعلَّم نظامًا واحدًا، فتقع كل كلمة جديدة على شيء تفهمه من قبل.",w2h:"مسار واحد واضح",w2:"المستويات تنتقل من الحروف إلى القراءة والفهم، وكل درس يستند إلى الذي قبله.",w3h:"مصمم لغير العرب",w3:"الشرح بلغتك، والعربية الفصحى بابًا إلى القرآن والكتب والإعلام.",
   appH:"داخل التطبيق",appLead:"دروس قصيرة، ومسار مرئي، وتقدم تراه بعينك.",scrLevel:"المستوى 1",scrL1:"الأرقام 0–10",scrL2:"الحروف",scrL3:"التحيات",scrLesson:"الدرس 1",scrQ:"أيها الثلاثة؟",scrHint:"اضغط الرقم الصحيح",navHome:"الرئيسية",navProgress:"التقدم",navProfile:"حسابي",
-  langH:"تعلّم بلغتك",langLead:"الإصدار الأول يشرح كل شيء بالإنجليزية والعربية، وتلحق بهما لغات أخرى.",fPlatform:"منصة Asasly",fPrivacy:"سياسة الخصوصية",fContact:"تواصل معنا",title:"Asasly Arabic — فهمُ الجذور"}
+  langH:"تعلّم بلغتك",langLead:"الإصدار الأول يشرح كل شيء بالإنجليزية والعربية، وتلحق بهما لغات أخرى.",fPlatform:"منصة Asasly",fPrivacy:"سياسة الخصوصية",fTerms:"شروط الاستخدام",fContact:"تواصل معنا",title:"Asasly Arabic — فهمُ الجذور"}
 };
 function applyLanguage(code){
   const t=T[code]; document.documentElement.lang=code; document.documentElement.dir=code==='ar'?'rtl':'ltr';
