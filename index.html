@@ -145,6 +145,7 @@ a.product-link:focus-visible{outline:3px solid var(--accent); outline-offset:3px
 .hero p, .section h2, .section-body, .products-title, .product h3, .product p{text-wrap:balance}
 
 footer{max-width:1080px; margin-inline:auto; padding:24px; border-block-start:1px solid var(--line); color:var(--text-2); font-size:14px}
+footer a{color:var(--text-2); text-decoration:none} footer a:hover{color:var(--text); text-decoration:underline}
 
 @media (max-width:720px){
   .nav{display:none}
@@ -248,7 +249,7 @@ footer{max-width:1080px; margin-inline:auto; padding:24px; border-block-start:1p
   </section>
 </main>
 
-<footer><span data-i18n="footer"></span></footer>
+<footer><span data-i18n="footer"></span><span class="legal"> · <a href="https://asasly.com/privacy/" data-i18n="legalPrivacy">Privacy</a> · <a href="https://asasly.com/terms/" data-i18n="legalTerms">Terms</a></span></footer>
 
 <script>
 const LANGUAGES = [
@@ -283,7 +284,9 @@ const translations = {
     "quranBody": "اقرأ القرآن وافهمه خطوة بخطوة، من الحروف إلى المعاني.",
     "langLabel": "اللغة",
     "footer": "© 2026 Asasly",
-    "islamBody": "تعلّم أساسيات الإسلام والسيرة النبوية والتاريخ الإسلامي، من الأصول إلى التطبيق."
+    "islamBody": "تعلّم أساسيات الإسلام والسيرة النبوية والتاريخ الإسلامي، من الأصول إلى التطبيق.",
+    "legalPrivacy": "الخصوصية",
+    "legalTerms": "الشروط"
   },
   "en": {
     "pageTitle": "Asasly — Understanding the Roots",
@@ -299,7 +302,9 @@ const translations = {
     "quranBody": "Read and understand the Quran step by step, from the letters to the meanings.",
     "langLabel": "Language",
     "footer": "© 2026 Asasly",
-    "islamBody": "Learn the essentials of Islam, the Seerah and Islamic history, from the foundations up."
+    "islamBody": "Learn the essentials of Islam, the Seerah and Islamic history, from the foundations up.",
+    "legalPrivacy": "Privacy",
+    "legalTerms": "Terms"
   },
   "fr": {
     "pageTitle": "Asasly — Comprendre les racines",
