@@ -176,6 +176,8 @@ footer a{color:var(--text-2); text-decoration:none} footer a:hover{color:var(--t
   .lang-btn{padding:5px 10px; gap:6px}
   .theme button{width:27px; height:26px}
   .theme button svg{width:15px; height:15px}
+  /* the longest language name (Bahasa Indonesia) is shortened with an ellipsis instead of wrapping to two lines */
+  #langCurrent{white-space:nowrap; max-width:calc(100vw - 252px); overflow:hidden; text-overflow:ellipsis}
 }
 /* Wide screens: three columns — About on one side, the symbol, name and tagline in the middle, the apps on the other side.
    Everything fits in one screen; the columns mirror automatically in right-to-left languages. */
