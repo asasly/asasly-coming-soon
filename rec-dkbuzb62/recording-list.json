@@ -1,0 +1,816 @@
+{
+ "_contract": {
+  "name": "Asasly recording list",
+  "version": 1,
+  "agreed": "2026-10-07 (App and Content chat, with Tamer)",
+  "producer": "the Asset Office exports it; it is published as one file next to the recording page, which reads it each time it opens; an update replaces this file only",
+  "which_words": "Fusha and colloquial alike: every word whose machine voices were all rejected, and every word whose approved human take was made for an older text. A word whose voices still await judgment stays out until judged.",
+  "fields": {
+   "contract": "the contract version (1)",
+   "made_at": "when the office exported the list (ISO 8601 with offset)",
+   "sample": "true only in a sample like this one",
+   "check": "the thresholds of the office's automatic check (dB relative to full scale, seconds), for the page's live warnings",
+   "fingerprint_rule": "how a fingerprint is computed, for verification only: the page copies fingerprints, it never computes them",
+   "words[].id": "the word's id; the take's file name in the session zip is <id>.<ext>",
+   "words[].text": "the exact text of the spoken list (content.json), character for character: shown to the speaker as it is (it is the vowelled form) and the basis of the fingerprint. Never normalize it (no NFC/NFD): a shadda followed by a vowel would be reordered and the fingerprint would change",
+   "words[].fingerprint": "computed by the office; copied untouched into session.json recordings[].fingerprint",
+   "words[].register": "'dialect' or 'fusha': the page's instruction line (read it in your daily dialect / read it in Fusha)",
+   "words[].dialect": "'eg' for Egyptian colloquial, '' for Fusha",
+   "words[].roman": "the romanization, standard scheme, from the project's romanizer (tools/roman.py)",
+   "words[].fusha": "the Fusha counterpart shown beside a colloquial word; null for a Fusha word",
+   "words[].order": "the position in the lessons (1 = first); the page records in this order; words not in any lesson yet come last",
+   "words[].lesson": "{id, number, title} of the first lesson that teaches the word, or null",
+   "words[].redo": "present only when an earlier human take was rejected: {reason, note}, shown to the speaker"
+  },
+  "saving": "the page keeps the speaker's takes by id AND fingerprint: when a new list changes a word's fingerprint, its saved take is stale and is recorded again",
+  "session_file": "unchanged (the office's session contract): session.json {speaker, recorded_at, consent, recordings:[{id, file, fingerprint}]} + <id>.<ext>; consent carries the consent text the speaker accepted"
+ },
+ "contract": 1,
+ "made_at": "2026-10-07T20:02:38+03:00",
+ "sample": true,
+ "check": {
+  "sample_rate": 16000,
+  "loudness_target_db": -20.0,
+  "loudness_tolerance_db": 3.0,
+  "peak_limit_db": -0.5,
+  "noise_floor_max_db": -45.0,
+  "noise_window_s": 0.1,
+  "silence_threshold_db": -40.0,
+  "edge_silence_max_s": 0.4,
+  "edge_silence_min_s": 0.03,
+  "length_min_s": 0.3,
+  "length_max_s": 4.0
+ },
+ "fingerprint_rule": {
+  "algorithm": "SHA-256",
+  "input": "the UTF-8 bytes of words[].text exactly as given, no trimming, no normalization",
+  "output": "the first 12 hexadecimal characters, lower case"
+ },
+ "words": [
+  {
+   "id": "N2-eg",
+   "text": "اِتْنَيْنْ",
+   "fingerprint": "5031ee59beda",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "itneen",
+   "fusha": "اِثْنَانْ",
+   "order": 1,
+   "lesson": {
+    "id": "L01",
+    "number": 1,
+    "title": "الأرقام"
+   }
+  },
+  {
+   "id": "N2",
+   "text": "اِثْنَانْ",
+   "fingerprint": "ec647cf7b000",
+   "register": "fusha",
+   "dialect": "",
+   "roman": "ithnān",
+   "fusha": null,
+   "order": 2,
+   "lesson": {
+    "id": "L01",
+    "number": 1,
+    "title": "الأرقام"
+   }
+  },
+  {
+   "id": "N3-eg",
+   "text": "تَلَاتَة",
+   "fingerprint": "d7ca9fe38772",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "talāta",
+   "fusha": "ثَلَاثَة",
+   "order": 3,
+   "lesson": {
+    "id": "L01",
+    "number": 1,
+    "title": "الأرقام"
+   },
+   "redo": {
+    "reason": "ليست مصرية",
+    "note": "مثال توضيحي في العيّنة وحدها"
+   }
+  },
+  {
+   "id": "N6",
+   "text": "سِتَّة",
+   "fingerprint": "c0b753d99ec4",
+   "register": "fusha",
+   "dialect": "",
+   "roman": "sitta",
+   "fusha": null,
+   "order": 4,
+   "lesson": {
+    "id": "L01",
+    "number": 1,
+    "title": "الأرقام"
+   }
+  },
+  {
+   "id": "N8-eg",
+   "text": "تَمَانْيَة",
+   "fingerprint": "d5a412c64128",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "tamānya",
+   "fusha": "ثَمَانِيَة",
+   "order": 5,
+   "lesson": {
+    "id": "L01",
+    "number": 1,
+    "title": "الأرقام"
+   }
+  },
+  {
+   "id": "CL01-eg",
+   "text": "إِسْوِدْ",
+   "fingerprint": "b959caecc9cd",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "iswid",
+   "fusha": "أَسْوَدْ",
+   "order": 6,
+   "lesson": {
+    "id": "L02",
+    "number": 2,
+    "title": "الألوان السهلة"
+   }
+  },
+  {
+   "id": "CL05-eg",
+   "text": "بَنَفْسَجِي",
+   "fingerprint": "3213df6c384e",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "banafsagī",
+   "fusha": "بَنَفْسَجِي",
+   "order": 7,
+   "lesson": {
+    "id": "L02",
+    "number": 2,
+    "title": "الألوان السهلة"
+   }
+  },
+  {
+   "id": "SH01-eg",
+   "text": "دَايْرَة",
+   "fingerprint": "464e051c5641",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "dāyra",
+   "fusha": "دَائِرَة",
+   "order": 8,
+   "lesson": {
+    "id": "L03",
+    "number": 3,
+    "title": "الأشكال والاتجاهات السهلة"
+   }
+  },
+  {
+   "id": "SH02-eg",
+   "text": "نِجْمَة",
+   "fingerprint": "cdc90e21f330",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "nigma",
+   "fusha": "نَجْمَة",
+   "order": 9,
+   "lesson": {
+    "id": "L03",
+    "number": 3,
+    "title": "الأشكال والاتجاهات السهلة"
+   }
+  },
+  {
+   "id": "DR01-eg",
+   "text": "يِمِينْ",
+   "fingerprint": "396ed32bc573",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "yimīn",
+   "fusha": "يَمِينْ",
+   "order": 10,
+   "lesson": {
+    "id": "L03",
+    "number": 3,
+    "title": "الأشكال والاتجاهات السهلة"
+   }
+  },
+  {
+   "id": "DR02-eg-syn",
+   "text": "شِمَالْ",
+   "fingerprint": "fc9eaa2d8aba",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "shimāl",
+   "fusha": "يَسَارْ",
+   "order": 11,
+   "lesson": {
+    "id": "L03",
+    "number": 3,
+    "title": "الأشكال والاتجاهات السهلة"
+   }
+  },
+  {
+   "id": "BD01-eg",
+   "text": "إِيدْ",
+   "fingerprint": "040543163fd5",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "īd",
+   "fusha": "يَدْ",
+   "order": 12,
+   "lesson": {
+    "id": "L04",
+    "number": 4,
+    "title": "الجسم السهل"
+   }
+  },
+  {
+   "id": "BD02-eg-syn",
+   "text": "بُقْ",
+   "fingerprint": "5f5ffaa0c1d7",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "buʾ",
+   "fusha": "فَمْ",
+   "order": 13,
+   "lesson": {
+    "id": "L04",
+    "number": 4,
+    "title": "الجسم السهل"
+   }
+  },
+  {
+   "id": "BD03-eg",
+   "text": "رِجْلْ",
+   "fingerprint": "41f0842460a8",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "rigl",
+   "fusha": "رِجْلْ",
+   "order": 14,
+   "lesson": {
+    "id": "L04",
+    "number": 4,
+    "title": "الجسم السهل"
+   }
+  },
+  {
+   "id": "BD04-eg-syn",
+   "text": "مَنَاخِيرْ",
+   "fingerprint": "544074a9d9a1",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "manākhīr",
+   "fusha": "أَنْفْ",
+   "order": 15,
+   "lesson": {
+    "id": "L04",
+    "number": 4,
+    "title": "الجسم السهل"
+   }
+  },
+  {
+   "id": "BD05-eg",
+   "text": "رَاسْ",
+   "fingerprint": "e54227508e34",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "rās",
+   "fusha": "رَأْسْ",
+   "order": 16,
+   "lesson": {
+    "id": "L04",
+    "number": 4,
+    "title": "الجسم السهل"
+   }
+  },
+  {
+   "id": "PR07-eg",
+   "text": "زَيْنَبْ",
+   "fingerprint": "67db7520df09",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "zeenab",
+   "fusha": "زَيْنَبْ",
+   "order": 17,
+   "lesson": {
+    "id": "L05",
+    "number": 5,
+    "title": "الأسماء الأولى"
+   }
+  },
+  {
+   "id": "PR14-eg",
+   "text": "جَمِيلَة",
+   "fingerprint": "001c105fc356",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "gamīla",
+   "fusha": "جَمِيلَة",
+   "order": 18,
+   "lesson": {
+    "id": "L06",
+    "number": 6,
+    "title": "الأسماء الثانية"
+   }
+  },
+  {
+   "id": "LM01-eg",
+   "text": "بُرْجْ إِيفِلْ",
+   "fingerprint": "31a04a0ef8a1",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "burg īfil",
+   "fusha": "بُرْجْ إِيفِلْ",
+   "order": 19,
+   "lesson": {
+    "id": "L06",
+    "number": 6,
+    "title": "الأسماء الثانية"
+   }
+  },
+  {
+   "id": "PR16-eg",
+   "text": "حُسَيْنْ",
+   "fingerprint": "31d77a875a9b",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "ḥuseen",
+   "fusha": "حُسَيْنْ",
+   "order": 20,
+   "lesson": {
+    "id": "L07",
+    "number": 7,
+    "title": "الحاء والهاء والشين"
+   }
+  },
+  {
+   "id": "PR22-eg",
+   "text": "هَاجَرْ",
+   "fingerprint": "1ceaae2d9cd6",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "hāgar",
+   "fusha": "هَاجَرْ",
+   "order": 21,
+   "lesson": {
+    "id": "L07",
+    "number": 7,
+    "title": "الحاء والهاء والشين"
+   }
+  },
+  {
+   "id": "PR27-eg",
+   "text": "خَدِيجَة",
+   "fingerprint": "e24d5c363e7a",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "khadīga",
+   "fusha": "خَدِيجَة",
+   "order": 22,
+   "lesson": {
+    "id": "L08",
+    "number": 8,
+    "title": "العين والخاء والغين"
+   }
+  },
+  {
+   "id": "PR28-eg",
+   "text": "قَاسِمْ",
+   "fingerprint": "3cc5dbbbf235",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "ʾāsim",
+   "fusha": "قَاسِمْ",
+   "order": 23,
+   "lesson": {
+    "id": "L09",
+    "number": 9,
+    "title": "القاف والصاد والطاء"
+   }
+  },
+  {
+   "id": "CL07-eg",
+   "text": "أَزْرَقْ",
+   "fingerprint": "935bf290ebef",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "azraʾ",
+   "fusha": "أَزْرَقْ",
+   "order": 24,
+   "lesson": {
+    "id": "L10",
+    "number": 10,
+    "title": "الألوان الأساسية"
+   }
+  },
+  {
+   "id": "CL11-eg",
+   "text": "بُرْتُقَانِي",
+   "fingerprint": "1ff64afcfad1",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "burtuʾānī",
+   "fusha": "بُرْتُقَالِي",
+   "order": 25,
+   "lesson": {
+    "id": "L10",
+    "number": 10,
+    "title": "الألوان الأساسية"
+   }
+  },
+  {
+   "id": "CL12-eg",
+   "text": "دَهَبِي",
+   "fingerprint": "8164aaed62d3",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "dahabī",
+   "fusha": "ذَهَبِي",
+   "order": 26,
+   "lesson": {
+    "id": "L10",
+    "number": 10,
+    "title": "الألوان الأساسية"
+   }
+  },
+  {
+   "id": "SH03-eg",
+   "text": "مِرَبَّعْ",
+   "fingerprint": "b49766671bb6",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "mirabbaʿ",
+   "fusha": "مُرَبَّعْ",
+   "order": 27,
+   "lesson": {
+    "id": "L11",
+    "number": 11,
+    "title": "الأشكال والاتجاهات الصعبة"
+   }
+  },
+  {
+   "id": "SH04-eg",
+   "text": "مِتَلَّتْ",
+   "fingerprint": "677db26020a3",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "mitallat",
+   "fusha": "مُثَلَّثْ",
+   "order": 28,
+   "lesson": {
+    "id": "L11",
+    "number": 11,
+    "title": "الأشكال والاتجاهات الصعبة"
+   }
+  },
+  {
+   "id": "SH06-eg",
+   "text": "قَلْبْ",
+   "fingerprint": "d5c3b2c7a079",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "ʾalb",
+   "fusha": "قَلْبْ",
+   "order": 29,
+   "lesson": {
+    "id": "L11",
+    "number": 11,
+    "title": "الأشكال والاتجاهات الصعبة"
+   }
+  },
+  {
+   "id": "DR03-eg",
+   "text": "فَوْقْ",
+   "fingerprint": "54cc1c73a16b",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "fooʾ",
+   "fusha": "فَوْقْ",
+   "order": 30,
+   "lesson": {
+    "id": "L11",
+    "number": 11,
+    "title": "الأشكال والاتجاهات الصعبة"
+   }
+  },
+  {
+   "id": "NT02-eg",
+   "text": "قَمَرْ",
+   "fingerprint": "f26dbbe3deec",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "ʾamar",
+   "fusha": "قَمَرْ",
+   "order": 31,
+   "lesson": {
+    "id": "L12",
+    "number": 12,
+    "title": "السماء والجسم الصعب"
+   }
+  },
+  {
+   "id": "NT04-eg",
+   "text": "ضِلّ",
+   "fingerprint": "b5d5c78c1f86",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "ḍill",
+   "fusha": "ظِلّ",
+   "order": 32,
+   "lesson": {
+    "id": "L12",
+    "number": 12,
+    "title": "السماء والجسم الصعب"
+   }
+  },
+  {
+   "id": "BD06-eg",
+   "text": "عَيْنْ",
+   "fingerprint": "0337f90d726e",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "ʿeen",
+   "fusha": "عَيْنْ",
+   "order": 33,
+   "lesson": {
+    "id": "L12",
+    "number": 12,
+    "title": "السماء والجسم الصعب"
+   }
+  },
+  {
+   "id": "BD07-eg",
+   "text": "وِدْنْ",
+   "fingerprint": "99709e65e04e",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "widn",
+   "fusha": "أُذُنْ",
+   "order": 34,
+   "lesson": {
+    "id": "L12",
+    "number": 12,
+    "title": "السماء والجسم الصعب"
+   }
+  },
+  {
+   "id": "BD09-eg",
+   "text": "دِرَاعْ",
+   "fingerprint": "51c2146dcb5d",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "dirāʿ",
+   "fusha": "ذِرَاعْ",
+   "order": 35,
+   "lesson": {
+    "id": "L12",
+    "number": 12,
+    "title": "السماء والجسم الصعب"
+   }
+  },
+  {
+   "id": "BD10-eg",
+   "text": "ضَهْرْ",
+   "fingerprint": "d5923e0b2725",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "ḍahr",
+   "fusha": "ظَهْرْ",
+   "order": 36,
+   "lesson": {
+    "id": "L12",
+    "number": 12,
+    "title": "السماء والجسم الصعب"
+   }
+  },
+  {
+   "id": "SN03-eg-syn",
+   "text": "أَنَسْ غَضْبَانْ",
+   "fingerprint": "8b71088f645f",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "anas ghaḍbān",
+   "fusha": "أَنَسْ غَاضِبْ",
+   "order": 37,
+   "lesson": {
+    "id": "L13",
+    "number": 13,
+    "title": "المشاعر جملاً"
+   }
+  },
+  {
+   "id": "SN04-eg",
+   "text": "مَرْيَمْ خَايْفَة",
+   "fingerprint": "3f97ca222aef",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "maryam khāyfa",
+   "fusha": "مَرْيَمْ خَائِفَة",
+   "order": 38,
+   "lesson": {
+    "id": "L13",
+    "number": 13,
+    "title": "المشاعر جملاً"
+   }
+  },
+  {
+   "id": "SN05-eg-syn",
+   "text": "مَرْيَمْ بِتِضْحَكْ",
+   "fingerprint": "4cb28ebd662c",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "maryam bitiḍḥak",
+   "fusha": "مَرْيَمْ ضَاحِكَة",
+   "order": 39,
+   "lesson": {
+    "id": "L13",
+    "number": 13,
+    "title": "المشاعر جملاً"
+   }
+  },
+  {
+   "id": "SN06-eg-syn",
+   "text": "مَرْيَمْ مُسْتَغْرَبَة",
+   "fingerprint": "c0f3b4d5a351",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "maryam mustaghraba",
+   "fusha": "مَرْيَمْ مُنْدَهِشَة",
+   "order": 40,
+   "lesson": {
+    "id": "L13",
+    "number": 13,
+    "title": "المشاعر جملاً"
+   }
+  },
+  {
+   "id": "PR38-eg",
+   "text": "طَارِقْ",
+   "fingerprint": "99cd20527f59",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "ṭāriʾ",
+   "fusha": "طَارِقْ",
+   "order": 41,
+   "lesson": {
+    "id": "L14",
+    "number": 14,
+    "title": "الأسماء الكبرى"
+   }
+  },
+  {
+   "id": "PL11-eg",
+   "text": "قَطَرْ",
+   "fingerprint": "37d915675ea9",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "ʾaṭar",
+   "fusha": "قَطَرْ",
+   "order": 42,
+   "lesson": {
+    "id": "L14",
+    "number": 14,
+    "title": "الأسماء الكبرى"
+   }
+  },
+  {
+   "id": "PL13-eg",
+   "text": "مَصْرْ",
+   "fingerprint": "a4950640ea65",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "maṣr",
+   "fusha": "مِصْرْ",
+   "order": 43,
+   "lesson": {
+    "id": "L15",
+    "number": 15,
+    "title": "العناقيد وما فيه «ال»"
+   }
+  },
+  {
+   "id": "PL14-eg",
+   "text": "الْقَاهِرَة",
+   "fingerprint": "d9305c04c746",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "il-ʾāhira",
+   "fusha": "الْقَاهِرَة",
+   "order": 44,
+   "lesson": {
+    "id": "L15",
+    "number": 15,
+    "title": "العناقيد وما فيه «ال»"
+   }
+  },
+  {
+   "id": "LM02-eg",
+   "text": "الْأَهْرَامْ",
+   "fingerprint": "94c5a803a320",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "il-ahrām",
+   "fusha": "الْأَهْرَامْ",
+   "order": 45,
+   "lesson": {
+    "id": "L15",
+    "number": 15,
+    "title": "العناقيد وما فيه «ال»"
+   }
+  },
+  {
+   "id": "PL15-eg",
+   "text": "الْهِنْدْ",
+   "fingerprint": "053b4c0cc25a",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "il-hind",
+   "fusha": "الْهِنْدْ",
+   "order": 46,
+   "lesson": {
+    "id": "L15",
+    "number": 15,
+    "title": "العناقيد وما فيه «ال»"
+   }
+  },
+  {
+   "id": "LM03-eg",
+   "text": "تَاجْ مَحَلْ",
+   "fingerprint": "c03fc1962b6f",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "tāg maḥal",
+   "fusha": "تَاجْ مَحَلْ",
+   "order": 47,
+   "lesson": {
+    "id": "L15",
+    "number": 15,
+    "title": "العناقيد وما فيه «ال»"
+   }
+  },
+  {
+   "id": "LM04-eg",
+   "text": "الْكَعْبَة",
+   "fingerprint": "393c8851a9d2",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "il-kaʿba",
+   "fusha": "الْكَعْبَة",
+   "order": 48,
+   "lesson": {
+    "id": "L15",
+    "number": 15,
+    "title": "العناقيد وما فيه «ال»"
+   }
+  },
+  {
+   "id": "PL17-eg",
+   "text": "الْصِّينْ",
+   "fingerprint": "bc89cb107662",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "iṣ-ṣīn",
+   "fusha": "الْصِّينْ",
+   "order": 49,
+   "lesson": {
+    "id": "L15",
+    "number": 15,
+    "title": "العناقيد وما فيه «ال»"
+   }
+  },
+  {
+   "id": "PL18-eg",
+   "text": "الْرِّيَاضْ",
+   "fingerprint": "1665c17999a5",
+   "register": "dialect",
+   "dialect": "eg",
+   "roman": "ir-riyāḍ",
+   "fusha": "الْرِّيَاضْ",
+   "order": 50,
+   "lesson": {
+    "id": "L15",
+    "number": 15,
+    "title": "العناقيد وما فيه «ال»"
+   }
+  },
+  {
+   "id": "LT01",
+   "text": "أَلِف",
+   "fingerprint": "0212f796cd4f",
+   "register": "fusha",
+   "dialect": "",
+   "roman": "alif",
+   "fusha": null,
+   "order": 51,
+   "lesson": null
+  }
+ ]
+}
