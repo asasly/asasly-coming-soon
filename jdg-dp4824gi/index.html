@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لوح الحكم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=El+Messiri:wght@500;600;700&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---- the single configuration block ----
+     PROJECT_URL is the Asasly Supabase project. ANON_KEY is the PUBLIC (anon/publishable) key — not a secret, its
+     place is this page. Fill it once in the <script> (the empty quotes). No service key, no password, no session
+     token is ever written into this file. */
+  :root{
+    /* the Asasly identity (from the app's design tokens): deep navy, mid blue, gold highlight, light-blue surfaces */
+    --navy:#17283D; --navy-2:#24405f; --bg:#eef4fb; --panel:#ffffff; --ink:#16202c; --muted:#51708f;
+    --line:#c4d4e8; --soft:#e7eef7; --sand:#dce6f2;
+    --blue:#3a6ea5; --blue-ink:#fff; --gold:#f2b705; --gold-deep:#a77d00;
+    --ok:#1c7a4d; --okbg:#e3f1e9; --bad:#7a2e2e; --badbg:#f6e6e4;
+    --warn:#8a5a00; --warnbg:#fff6e0; --prov:#8a5a00; --provbg:#fdf0d6;
+    --base:14px; --small:12px; --word:18px; --radius:10px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg); color:var(--ink);
+    font-family:"IBM Plex Sans Arabic","IBM Plex Sans","Noto Sans",system-ui,sans-serif;
+    font-size:var(--base); line-height:1.7; -webkit-text-size-adjust:100%;}
+  body[dir="ltr"]{font-family:"IBM Plex Sans","IBM Plex Sans Arabic","Noto Sans",system-ui,sans-serif;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 16px 56px}
+  .ar{font-family:"IBM Plex Sans Arabic",sans-serif; direction:rtl; unicode-bidi:plaintext}
+  .ltr{direction:ltr; unicode-bidi:isolate; text-align:left; font-family:"IBM Plex Sans","Noto Sans",sans-serif}
+  header.bar{position:sticky; top:0; z-index:20; background:var(--panel); border-bottom:1px solid var(--line);
+    display:flex; align-items:center; gap:10px; padding:10px 16px; margin:0 -16px; flex-wrap:wrap}
+  header.bar h1{font-size:16px; font-weight:600; margin:0; white-space:nowrap}
+  .spacer{flex:1}
+  .who{font-size:var(--small); color:var(--muted)}
+  .tabs{display:flex; gap:4px}
+  .tab{font-size:var(--base); padding:7px 14px; border:1px solid var(--line); background:var(--panel);
+    border-radius:8px; cursor:pointer; color:var(--muted); min-height:38px}
+  .tab.on{background:var(--blue); color:var(--blue-ink); border-color:var(--blue)}
+  button{font-family:inherit; font-size:var(--base); cursor:pointer; border:1px solid var(--line);
+    background:var(--panel); color:var(--ink); border-radius:8px; padding:8px 13px; min-height:38px}
+  button.primary{background:var(--blue); color:var(--blue-ink); border-color:var(--blue)}
+  button.ghost{background:transparent}
+  button.mini{min-height:30px; padding:4px 10px; font-size:var(--small)}
+  button:disabled{opacity:.5; cursor:default}
+  input,select,textarea{font-family:inherit; font-size:var(--base); border:1px solid var(--line);
+    border-radius:8px; padding:8px 11px; width:100%; background:var(--panel); color:var(--ink); min-height:38px}
+  textarea{min-height:68px; line-height:1.7}
+  label{display:block; font-size:var(--small); color:var(--muted); margin:0 0 4px}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:16px; margin:16px 0}
+  .toolbar{position:sticky; top:57px; z-index:15; background:var(--bg); padding:10px 0; margin:0;
+    display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap; border-bottom:1px solid var(--line)}
+  .toolbar .fld{flex:0 0 auto; min-width:140px}
+  .muted{color:var(--muted); font-size:var(--small)}
+  .word{font-size:var(--word); font-weight:500; font-family:"IBM Plex Sans Arabic",sans-serif; direction:rtl; unicode-bidi:plaintext}
+  .pill{display:inline-block; font-size:var(--small); color:var(--muted); border:1px solid var(--line);
+    border-radius:999px; padding:1px 9px; margin-inline-start:6px}
+  .notice{background:var(--warnbg); color:var(--warn); border:1px solid #efd9a0; border-radius:8px; padding:10px 12px; font-size:var(--small); margin:16px 0}
+  .err{color:var(--bad); font-size:var(--small); white-space:pre-wrap; word-break:break-word}
+  .ok{color:var(--ok); font-size:var(--small)}
+  .tag{font-size:var(--small); border-radius:6px; padding:1px 8px; white-space:nowrap}
+  .tag.unjudged{background:var(--soft); color:var(--muted)}
+  .tag.judged{background:var(--okbg); color:var(--ok)}
+  .tag.stale{background:var(--badbg); color:var(--bad)}
+  .st{font-size:var(--small); color:var(--muted)}
+  /* lesson group */
+  .lesson{border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); margin:10px 0; overflow:hidden}
+  .lhead{display:flex; align-items:center; gap:10px; padding:9px 12px; cursor:pointer; background:#fbfcfd; border-bottom:1px solid var(--line)}
+  .lhead .arrow{font-size:12px; color:var(--muted); transition:transform .15s}
+  .lesson.collapsed .lhead{border-bottom:none}
+  .lesson.collapsed .arrow{transform:rotate(-90deg)}
+  .lesson.collapsed .lbody{display:none}
+  .lhead .lt{font-weight:500}
+  .lhead .lcount{font-size:var(--small); color:var(--muted)}
+  .prog{flex:0 0 120px; height:6px; background:var(--soft); border-radius:999px; overflow:hidden}
+  .prog > i{display:block; height:100%; background:var(--ok)}
+  /* audio row */
+  .arow{display:flex; align-items:center; gap:10px; padding:8px 12px; border-top:1px solid var(--line); cursor:pointer; flex-wrap:wrap}
+  .arow:first-child{border-top:none}
+  .arow:hover{background:var(--soft)}
+  .arow.open{background:var(--soft)}
+  .arow .k{font-size:var(--small); color:var(--muted); min-width:72px}
+  .arow .w{flex:1; min-width:90px}
+  .arow .src{font-size:var(--small); color:var(--muted); min-width:120px}
+  .arow .rt{font-size:var(--small)}
+  .judge{padding:14px 12px; border-top:1px dashed var(--line); background:#fff}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  .checks{display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:4px}
+  .checks label{display:flex; align-items:center; gap:6px; margin:0; color:var(--ink); font-size:var(--base)}
+  .checks input{width:auto; min-height:0}
+  audio{width:100%; max-width:420px; margin-top:8px}
+  .hist{font-size:var(--small); color:var(--muted); border-top:1px dashed var(--line); padding-top:5px; margin-top:5px}
+  .hide{display:none !important}
+  /* stats */
+  table.x{width:100%; border-collapse:collapse; font-size:var(--small)}
+  table.x th, table.x td{border:1px solid var(--line); padding:6px 8px; text-align:center}
+  table.x th{background:#102a4c; color:#fff; font-weight:500}
+  table.x td.rh{background:#fbfcfd; text-align:start; font-weight:500}
+  table.x td.c{cursor:pointer} table.x td.c:hover{background:var(--soft)}
+  @media (max-width:620px){
+    :root{--base:15px}
+    .grid2{grid-template-columns:1fr}
+    .toolbar{top:0; position:static}
+    .prog{display:none}
+    .arow .src{min-width:0}
+  }
+  @media print{
+    header.bar,.toolbar,.tabs,button,.notice,#loginCard{display:none !important}
+    .card,.lesson{border:none}
+    body{background:#fff}
+  }
+</style>
+</head>
+<body dir="rtl">
+<div class="wrap">
+
+  <header class="bar">
+    <h1 data-t="title">لوح الحكم</h1>
+    <div id="tabs" class="tabs hide">
+      <button class="tab on" data-reg="fusha" data-t="tab_fusha" onclick="switchTab('fusha')">فصحى</button>
+      <button class="tab" data-reg="colloquial" data-t="tab_coll" onclick="switchTab('colloquial')">عامية</button>
+      <button class="tab" data-reg="stats" data-t="tab_stats" onclick="switchTab('stats')">الإحصاء</button>
+      <button class="tab hide" id="adminTab" data-reg="admin" data-t="admin_tab" onclick="switchTab('admin')">الإدارة</button>
+    </div>
+    <div class="spacer"></div>
+    <button id="langBtn" class="ghost mini hide" onclick="toggleLang()">English</button>
+    <span id="who" class="who hide"></span>
+    <button id="logout" class="ghost mini hide" data-t="logout" onclick="logout()">خروج</button>
+  </header>
+
+  <div id="cfgNotice" class="notice hide" data-t="cfg">لم يُملأ المفتاح العامّ anon في أعلى الملف بعد؛ الصفحة لا تتصل بالقاعدة حتى يُملأ.</div>
+
+  <div id="loginCard" class="card">
+    <div style="display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap">
+      <div style="flex:1; min-width:180px"><label data-t="email">البريد</label><input id="email" type="email" autocomplete="username" dir="ltr"></div>
+      <div style="flex:1; min-width:180px"><label data-t="pw">كلمة المرور</label><input id="pw" type="password" autocomplete="current-password" dir="ltr"></div>
+      <div><button class="primary" data-t="login" onclick="login()">دخول</button></div>
+    </div>
+    <div id="loginErr" class="err" style="margin-top:10px"></div>
+    <div class="muted" style="margin-top:10px" data-t="pwnote">كلمة المرور تُستعمل مرّة لإصدار رمز الجلسة، ولا تُحفظ في المتصفّح.</div>
+  </div>
+
+  <div id="main" class="hide">
+    <div class="toolbar" id="toolbar">
+      <div class="fld">
+        <label data-t="mode">الوضع</label>
+        <select id="mode" onchange="onModeChange()">
+          <option value="prod" data-t="mode_prod">إنتاج</option>
+          <option value="exp" data-t="mode_exp">تجارب</option>
+        </select>
+      </div>
+      <div class="fld hide" id="expFld">
+        <label data-t="experiment">التجربة</label>
+        <select id="experiment" onchange="reload()"></select>
+      </div>
+      <div class="fld">
+        <label data-t="standing">المنزلة</label>
+        <select id="standing" onchange="reload()">
+          <option value="" data-t="all">الكل</option>
+          <option value="unjudged" data-t="s_unjudged">لم يُحكم</option>
+          <option value="judged" data-t="s_judged">حُكم</option>
+          <option value="stale" data-t="s_stale">سقط حكمه</option>
+        </select>
+      </div>
+      <div class="fld">
+        <label data-t="state">الحال</label>
+        <select id="state" onchange="reload()">
+          <option value="" data-t="all">الكل</option>
+          <option value="draft">draft</option>
+          <option value="provisional">provisional</option>
+          <option value="approved">approved</option>
+          <option value="published">published</option>
+        </select>
+      </div>
+      <div><button class="ghost" data-t="reload" onclick="reload()">تحديث</button></div>
+      <div class="spacer"></div>
+      <div><button class="ghost mini" data-t="xls" onclick="exportExcel()">تصدير إكسل</button></div>
+      <div><button class="ghost mini" data-t="print" onclick="window.print()">طباعة</button></div>
+      <div><button class="ghost mini" data-t="tmpl" onclick="downloadImportTemplate()">قالب استيراد</button></div>
+      <div><button class="ghost mini" data-t="import" onclick="document.getElementById('importFile').click()">استيراد</button>
+        <input type="file" id="importFile" accept=".csv,text/csv" class="hide" onchange="onImportFile(event)"></div>
+    </div>
+
+    <div id="count" class="muted" style="margin:10px 0 0"></div>
+    <div id="viewErr" class="err" style="margin-top:6px"></div>
+    <div id="queueView"></div>
+    <div id="statsView" class="hide"></div>
+    <div id="adminView" class="hide"></div>
+    <div id="expBar" class="card hide"></div>
+    <div id="importPanel" class="card hide"></div>
+  </div>
+
+</div>
+
+<script>
+// ===================== configuration =====================
+const PROJECT_URL = "https://gatbzxmoglrfwwnyinxe.supabase.co";
+const ANON_KEY = "sb_publishable_XiM8nFJe_qDvZ_96hRxTjQ_yB8JrHW4";   // <-- paste the public anon key between the quotes, then save and reload
+const PRODUCT = "arabic";
+// =========================================================
+
+let TOKEN=null, UID=null, ME=null, MY_ROLES=null;   // MY_ROLES: Set, or null = unknown (then the DB guards)
+let LANG = (localStorage.getItem("asasly_judge_lang") || "ar");
+let LISTS={}, LESSONS={}, QUEUE=[], OPEN=null, EXPERIMENTS=[];
+
+const T = {
+  ar:{ title:"لوح الحكم", tab_fusha:"فصحى", tab_coll:"عامية", tab_stats:"الإحصاء", logout:"خروج",
+    email:"البريد", pw:"كلمة المرور", login:"دخول", pwnote:"كلمة المرور تُستعمل مرّة لإصدار رمز الجلسة، ولا تُحفظ في المتصفّح.",
+    mode:"الوضع", mode_prod:"إنتاج", mode_exp:"تجارب", experiment:"التجربة", standing:"المنزلة", state:"الحال",
+    all:"الكل", s_unjudged:"لم يُحكم", s_judged:"حُكم", s_stale:"سقط حكمه", reload:"تحديث", xls:"تصدير إكسل", print:"طباعة",
+    cfg:"لم يُملأ المفتاح العامّ anon في أعلى الملف بعد؛ الصفحة لا تتصل بالقاعدة حتى يُملأ.",
+    listen:"سماع الملف", rating:"التقييم (إلزامي)", transfer:"تحويل المسار (اختياري)", none:"بلا",
+    stages:"مراحل القبول (اختياري، صفر فأكثر)", stages_no:"مراحل القبول — لا تُقبل مع «مردود»",
+    defects:"العيوب (اختياري، صفر فأكثر)", note:"ملاحظة حرّة (مستقلّة عن العيوب)", choose:"اختر",
+    save:"احفظ الحكم", approve:"اعتماد نهائي", doTransfer:"نفّذ التحويل", saved:"حُفظ الحكم رقم",
+    approved:"اعتُمد", nohist:"لا أحكام سابقة على هذا الملف.", lasthist:"آخر الأحكام:",
+    holds:"قائم", fell:"ساقط", prov:"مؤقت", noFiles:"لا ملفات بهذه المصافي.",
+    files:"ملف", openExp:"افتح تجربة", closeExp:"أغلق التجربة", expName:"اسم التجربة",
+    noLesson:"بلا درس", letters:"الحروف", stReg:"الحال", srcCol:"المصدر", total:"المجموع", unjudgedRow:"لم يُحكم",
+    tmpl:"قالب استيراد", import:"استيراد", impTitle:"استيراد أحكام", impValid:"صالحة", impInvalid:"مرفوضة", impSave:"احفظ الصالحة",
+    impCancel:"إلغاء", impDone:"تمّ الاستيراد", impConflict:"تعارض أو خطأ", reason_rating:"تقييم غير معروف أو فارغ",
+    reason_stage:"مرحلة غير معروفة", reason_defect:"عيب غير معروف", reason_rejstage:"لا مرحلة مع «مردود»",
+    reason_fp:"تغيّر النصّ أو الملف بعد التصدير", reason_missing:"ملفٌّ غير موجود",
+    comments:"تعليقات المراجعة", addComment:"أضف تعليقاً", resolve:"حُلّ", noComments:"لا تعليقات", resolved:"محلول",
+    admin_tab:"الإدارة", authors:"المؤلّفون", invites:"الدعوات المعلّقة", invite:"ادعُ مؤلّفاً", roleWord:"الدور",
+    grant:"امنح", revoke:"اسحب", activate:"فعّل", deactivate:"عطّل", active:"مفعّل", inactive:"معطّل",
+    send:"أرسل الدعوة", namePh:"الاسم (اختياري)" },
+  en:{ title:"Judging Board", tab_fusha:"Fusha", tab_coll:"Colloquial", tab_stats:"Statistics", logout:"Sign out",
+    email:"Email", pw:"Password", login:"Sign in", pwnote:"The password issues a session token once; it is never stored in the browser.",
+    mode:"Mode", mode_prod:"Production", mode_exp:"Experiments", experiment:"Experiment", standing:"Standing", state:"State",
+    all:"All", s_unjudged:"Unjudged", s_judged:"Judged", s_stale:"Stale", reload:"Reload", xls:"Export Excel", print:"Print",
+    cfg:"The public anon key is not filled at the top of the file yet; the page will not reach the database until it is.",
+    listen:"Play file", rating:"Rating (required)", transfer:"Path transfer (optional)", none:"None",
+    stages:"Acceptance stages (optional, zero or more)", stages_no:"Acceptance stages — not allowed with “Rejected”",
+    defects:"Defects (optional, zero or more)", note:"Free note (independent of defects)", choose:"Choose",
+    save:"Save judgment", approve:"Final approval", doTransfer:"Run transfer", saved:"Saved judgment no.",
+    approved:"Approved", nohist:"No earlier judgments on this file.", lasthist:"Recent judgments:",
+    holds:"holds", fell:"fell", prov:"provisional", noFiles:"No files for these filters.",
+    files:"files", openExp:"Open experiment", closeExp:"Close experiment", expName:"Experiment name",
+    noLesson:"No lesson", letters:"Letters", stReg:"State", srcCol:"Source", total:"Total", unjudgedRow:"Unjudged",
+    tmpl:"Import template", import:"Import", impTitle:"Import judgments", impValid:"valid", impInvalid:"rejected", impSave:"Save valid rows",
+    impCancel:"Cancel", impDone:"Import done", impConflict:"conflict or error", reason_rating:"unknown or empty rating",
+    reason_stage:"unknown stage", reason_defect:"unknown defect", reason_rejstage:"no stage with “rejected”",
+    reason_fp:"text or file changed after export", reason_missing:"file not found",
+    comments:"Review comments", addComment:"Add a comment", resolve:"Resolve", noComments:"No comments", resolved:"resolved",
+    admin_tab:"Admin", authors:"Authors", invites:"Pending invites", invite:"Invite author", roleWord:"Role",
+    grant:"Grant", revoke:"Revoke", activate:"Activate", deactivate:"Deactivate", active:"active", inactive:"inactive",
+    send:"Send invite", namePh:"Name (optional)" }
+};
+function t(k){ return (T[LANG] && T[LANG][k]) || (T.ar[k]) || k; }
+
+function cfgReady(){ return ANON_KEY.trim().length > 0; }
+function esc(s){ return (s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function nameOf(r){ const n=r&&r.names; if(!n) return (r&&r.id)||""; return (LANG==="ar"?n.AR:n.EN)||n.AR||n.EN||r.id; }
+function activeReg(){ const el=document.querySelector(".tab.on"); return el?el.dataset.reg:"fusha"; }
+
+async function api(method, path, {body=null, auth=true}={}){
+  const h={ "apikey":ANON_KEY, "Authorization":"Bearer "+(auth&&TOKEN?TOKEN:ANON_KEY) };
+  if(body!==null) h["Content-Type"]="application/json";
+  const res=await fetch(PROJECT_URL+path,{method,headers:h,body:body!==null?JSON.stringify(body):null});
+  const txt=await res.text(); let data=null; try{ data=txt?JSON.parse(txt):null; }catch(_){ data=txt; }
+  if(!res.ok){ const m=(data&&data.message)?data.message:(data&&data.error_description)?data.error_description:
+      (typeof data==="string"&&data)?data:(method+" "+path+" -> "+res.status); const e=new Error(m); e.status=res.status; throw e; }
+  return data;
+}
+
+// ---------------- language ----------------
+function applyLang(){
+  document.body.setAttribute("dir", LANG==="ar"?"rtl":"ltr");
+  document.documentElement.lang = LANG;
+  document.getElementById("langBtn").textContent = LANG==="ar"?"English":"العربية";
+  document.querySelectorAll("[data-t]").forEach(el=>{ el.textContent=t(el.dataset.t); });
+  if(TOKEN){ renderQueue(); }   // re-render names in the chosen language
+}
+function toggleLang(){
+  LANG = LANG==="ar"?"en":"ar";
+  localStorage.setItem("asasly_judge_lang", LANG);
+  applyLang();
+  // persist in the profile too (0014); harmless if unavailable
+  api("POST","/rest/v1/rpc/update_my_profile",{body:{p_ui_lang:LANG.toUpperCase()}}).catch(()=>{});
+}
+
+// ---------------- login ----------------
+async function login(){
+  const errEl=document.getElementById("loginErr"); errEl.textContent="";
+  if(!cfgReady()){ errEl.textContent=t("cfg"); return; }
+  const email=document.getElementById("email").value.trim(), pw=document.getElementById("pw").value;
+  if(!email||!pw){ errEl.textContent=LANG==="ar"?"أدخل البريد وكلمة المرور.":"Enter email and password."; return; }
+  try{
+    const s=await api("POST","/auth/v1/token?grant_type=password",{body:{email,password:pw},auth:false});
+    TOKEN=s.access_token; UID=s.user&&s.user.id;
+    document.getElementById("pw").value="";
+    await loadMe(s.user&&s.user.email);
+    await Promise.all([loadLists(), loadLessons()]);
+    document.getElementById("loginCard").classList.add("hide");
+    document.getElementById("main").classList.remove("hide");
+    document.getElementById("tabs").classList.remove("hide");
+    ["langBtn","who","logout"].forEach(id=>document.getElementById(id).classList.remove("hide"));
+    applyLang();
+    await reload();
+  }catch(e){ errEl.textContent=e.message; }
+}
+function logout(){ TOKEN=null; UID=null; ME=null; MY_ROLES=null; QUEUE=[]; OPEN=null;
+  document.getElementById("main").classList.add("hide"); document.getElementById("tabs").classList.add("hide");
+  ["langBtn","who","logout"].forEach(id=>document.getElementById(id).classList.add("hide"));
+  document.getElementById("loginCard").classList.remove("hide"); }
+
+async function loadMe(email){
+  document.getElementById("who").textContent = email||"";
+  await readMe();
+  if(MY_ROLES && MY_ROLES.size===0){   // signed in but no author row/roles yet: try to claim a pending invite (0014)
+    try{ await api("POST","/rest/v1/rpc/claim_invites",{body:{}}); await readMe(); }catch(_){}
+  }
+  document.getElementById("adminTab").classList.toggle("hide", !(MY_ROLES&&MY_ROLES.has("admin")));
+}
+async function readMe(){
+  try{
+    const rows=await api("GET","/rest/v1/v_authors?id=eq."+encodeURIComponent(UID)+"&select=display_name,roles,ui_lang");
+    if(rows&&rows.length){
+      ME=rows[0]; const set=new Set();
+      (ME.roles||[]).forEach(r=>{ const base=String(r).split("@")[0], prod=String(r).split("@")[1];
+        if(!prod||prod===PRODUCT) set.add(base); });
+      MY_ROLES=set;
+      if(ME.ui_lang && !localStorage.getItem("asasly_judge_lang")) LANG=ME.ui_lang.toLowerCase();
+      if(ME.display_name) document.getElementById("who").textContent=ME.display_name;
+    } else { MY_ROLES=new Set(); }                 // reachable but no author row
+  }catch(_){ MY_ROLES=null; }                      // unreachable (e.g. 0014 not applied) -> unknown; the database guards
+}
+function hasRole(r){ return MY_ROLES===null ? true : MY_ROLES.has(r); }
+
+// ---------------- managed lists + lessons ----------------
+async function loadLists(){
+  const [ratings,stages,defects,targets]=await Promise.all([
+    api("GET","/rest/v1/v_audio_ratings?select=id,rank,acceptable,shown,names&shown=is.true&order=rank.asc"),
+    api("GET","/rest/v1/v_acceptance_stages?select=id,rank,shown,names&shown=is.true&order=rank.asc"),
+    api("GET","/rest/v1/v_audio_defects?select=id,rank,kind,shown,names&shown=is.true&order=rank.asc"),
+    api("GET","/rest/v1/v_path_targets?select=id,rank,names&order=rank.asc") ]);
+  LISTS={ratings,stages,defects,targets};
+}
+async function loadLessons(){
+  try{ const rows=await api("GET","/rest/v1/lessons?product_id=eq."+PRODUCT+"&select=id,code,title");
+    LESSONS={}; rows.forEach(l=>LESSONS[l.id]={code:l.code,title:l.title}); }catch(_){ LESSONS={}; }
+}
+async function loadExperiments(){
+  try{ EXPERIMENTS=await api("GET","/rest/v1/experiments?product_id=eq."+PRODUCT+"&select=id,name,closed_at&order=id.desc"); }
+  catch(_){ EXPERIMENTS=[]; }
+  const sel=document.getElementById("experiment");
+  sel.innerHTML=EXPERIMENTS.map(e=>`<option value="${e.id}">${esc(e.name)}${e.closed_at?" ·":""}</option>`).join("")
+    || `<option value="">—</option>`;
+}
+
+// ---------------- tabs / mode ----------------
+function switchTab(reg){
+  document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on", b.dataset.reg===reg));
+  const stats=reg==="stats", admin=reg==="admin", queue=!stats&&!admin;
+  document.getElementById("queueView").classList.toggle("hide", !queue);
+  document.getElementById("statsView").classList.toggle("hide", !stats);
+  document.getElementById("adminView").classList.toggle("hide", !admin);
+  document.getElementById("count").classList.toggle("hide", !queue);
+  document.getElementById("toolbar").classList.toggle("hide", !queue);
+  if(stats) loadStats(); else if(admin) loadAdmin(); else reload();
+}
+function onModeChange(){
+  const exp=document.getElementById("mode").value==="exp";
+  document.getElementById("expFld").classList.toggle("hide", !exp);
+  document.getElementById("expBar").classList.toggle("hide", !exp);
+  if(exp){ loadExperiments().then(()=>{ renderExpBar(); reload(); }); }
+  else { document.getElementById("expBar").classList.add("hide"); reload(); }
+}
+
+// ---------------- queue ----------------
+function queuePath(reg){
+  const cols="audio_file_id,office_key,subject_kind,item_id,colloquial_form_id,lesson_id,form_type,spoken_text,shown_text,"+
+    "register_id,dialect_id,lesson_of_item,source_id,source_rank,bucket,path,size_bytes,state_id,version,standing,"+
+    "judgment_id,rating_id,provisional,stage_ids,judgment_note,transfer_to,judged_by_name,judged_at,defect_ids,experiment_id";
+  let p="/rest/v1/v_judging_queue?product_id=eq."+PRODUCT+"&retired=is.false&register_id=eq."+reg+"&select="+cols+
+        "&order=office_key.asc,source_rank.asc&limit=2000";
+  const mode=document.getElementById("mode").value;
+  if(mode==="exp"){ const id=document.getElementById("experiment").value; p+= id?("&experiment_id=eq."+id):"&experiment_id=not.is.null"; }
+  else p+="&experiment_id=is.null";
+  const st=document.getElementById("standing").value; if(st) p+="&standing=eq."+st;
+  const stt=document.getElementById("state").value; if(stt) p+="&state_id=eq."+stt;
+  return p;
+}
+async function reload(){
+  if(activeReg()==="stats") return loadStats();
+  const errEl=document.getElementById("viewErr"); errEl.textContent=""; OPEN=null;
+  try{ QUEUE=await api("GET", queuePath(activeReg())); renderQueue(); }
+  catch(e){ errEl.textContent=e.message; }
+}
+function groupKey(r){
+  if(r.subject_kind==="letter_example") return "__letters";
+  const k=r.lesson_of_item || r.lesson_id; return k || "__none";
+}
+function groupLabel(key){
+  if(key==="__letters") return t("letters");
+  if(key==="__none") return t("noLesson");
+  const l=LESSONS[key]; return l ? (l.code+" · "+l.title) : key;
+}
+function renderQueue(){
+  const host=document.getElementById("queueView");
+  document.getElementById("count").textContent = QUEUE.length+" "+t("files");
+  if(!QUEUE.length){ host.innerHTML='<div class="muted" style="padding:14px">'+t("noFiles")+'</div>'; return; }
+  const groups={}; QUEUE.forEach(r=>{ const k=groupKey(r); (groups[k]=groups[k]||[]).push(r); });
+  const keys=Object.keys(groups).sort((a,b)=>groupLabel(a).localeCompare(groupLabel(b),"ar"));
+  host.innerHTML=keys.map(k=>{
+    const rows=groups[k];
+    const appr=rows.filter(r=>r.state_id==="approved"||r.state_id==="published").length;
+    const pct=Math.round(appr*100/rows.length);
+    return `<div class="lesson" data-g="${esc(k)}">
+      <div class="lhead" onclick="this.parentNode.classList.toggle('collapsed')">
+        <span class="arrow">▾</span>
+        <span class="lt ar">${esc(groupLabel(k))}</span>
+        <span class="lcount">${t("approved")} ${appr} / ${rows.length}</span>
+        <div class="spacer"></div>
+        <div class="prog"><i style="width:${pct}%"></i></div>
+      </div>
+      <div class="lbody">${rows.map(rowHtml).join("")}</div>
+    </div>`;
+  }).join("");
+}
+function stTag(s){ const n=s==="judged"?t("s_judged"):s==="stale"?t("s_stale"):t("s_unjudged"); return `<span class="tag ${s}">${n}</span>`; }
+function rowHtml(r){
+  const rt = r.standing==="judged" && r.rating_id ? ratingName(r.rating_id)+(r.provisional?" ("+t("prov")+")":"") : "";
+  return `<div class="arow" id="row_${esc(r.audio_file_id)}" onclick="toggleJudge('${esc(r.audio_file_id)}')">
+    <span class="k ltr">${esc(r.office_key)}</span>
+    <span class="w word">${esc(r.spoken_text)}</span>
+    <span class="src ltr">${esc(r.source_id)}</span>
+    <span class="st">${esc(r.state_id)}</span>
+    <span class="rt">${rt}</span>
+    ${stTag(r.standing)}
+  </div><div class="judge hide" id="judge_${esc(r.audio_file_id)}"></div>`;
+}
+function ratingName(id){ const r=(LISTS.ratings||[]).find(x=>x.id===id); return r?nameOf(r):id; }
+
+// ---------------- inline judge ----------------
+function toggleJudge(id){
+  const panel=document.getElementById("judge_"+cssid(id)); const row=document.getElementById("row_"+cssid(id));
+  if(OPEN===id){ panel.classList.add("hide"); row.classList.remove("open"); OPEN=null; return; }
+  if(OPEN){ const p=document.getElementById("judge_"+cssid(OPEN)), rr=document.getElementById("row_"+cssid(OPEN));
+    if(p){p.classList.add("hide");} if(rr){rr.classList.remove("open");} }
+  OPEN=id; row.classList.add("open"); panel.classList.remove("hide");
+  panel.innerHTML=judgeHtml(QUEUE.find(r=>r.audio_file_id===id));
+  const sel=panel.querySelector(".jrating"); onRatingChange(sel);
+  loadHistory(id, panel.querySelector(".jhist"));
+  loadComments(id, panel.querySelector(".jcomments"));
+}
+function cssid(id){ return id; }   // dynamic ids are used with getElementById (literal), not querySelector; the id charset is [A-Za-z0-9_.:-]
+function judgeHtml(r){
+  const ratings=(LISTS.ratings||[]).map(x=>`<option value="${esc(x.id)}" data-acc="${x.acceptable}" ${r.rating_id===x.id?"selected":""}>${esc(nameOf(x))}</option>`).join("");
+  const targets=(LISTS.targets||[]).map(x=>`<option value="${esc(x.id)}" ${r.transfer_to===x.id?"selected":""}>${esc(nameOf(x))}</option>`).join("");
+  const sIds=r.stage_ids||[], dIds=r.defect_ids||[];
+  const stages=(LISTS.stages||[]).map(x=>`<label><input type="checkbox" class="jstage" value="${esc(x.id)}" ${sIds.indexOf(x.id)>=0?"checked":""}>${esc(nameOf(x))}</label>`).join("");
+  const defects=(LISTS.defects||[]).map(x=>`<label><input type="checkbox" class="jdefect" value="${esc(x.id)}" ${dIds.indexOf(x.id)>=0?"checked":""}>${esc(nameOf(x))}</label>`).join("");
+  const canApprove = hasRole("approver")||hasRole("admin");
+  const canTransfer = hasRole("reviewer")||hasRole("approver")||hasRole("admin");
+  return `
+    <div><button class="ghost mini" onclick="play('${esc(r.audio_file_id)}')">${t("listen")}</button>
+      <span class="err jplayerr"></span><audio class="jaud hide" controls></audio></div>
+    <div class="grid2" style="margin-top:12px">
+      <div><label>${t("rating")}</label><select class="jrating" onchange="onRatingChange(this)"><option value="">${t("choose")}</option>${ratings}</select></div>
+      <div><label>${t("transfer")}</label><select class="jtransfer"><option value="">${t("none")}</option>${targets}</select></div>
+    </div>
+    <div style="margin-top:12px"><label class="jstageslabel">${t("stages")}</label><div class="checks">${stages}</div></div>
+    <div style="margin-top:12px"><label>${t("defects")}</label><div class="checks">${defects}</div></div>
+    <div style="margin-top:12px"><label>${t("note")}</label><textarea class="jnote">${esc(r.judgment_note||"")}</textarea></div>
+    <div style="margin-top:14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+      <button class="primary" onclick="submitJudgment('${esc(r.audio_file_id)}')">${t("save")}</button>
+      ${canApprove?`<button class="ghost" onclick="approveFile('${esc(r.audio_file_id)}')">${t("approve")}</button>`:""}
+      ${canTransfer?`<button class="ghost" onclick="doTransfer('${esc(r.audio_file_id)}')">${t("doTransfer")}</button>`:""}
+      <span class="jmsg"></span>
+    </div>
+    <div class="err jerr" style="margin-top:8px"></div>
+    <div class="jhist" style="margin-top:12px"></div>
+    <div class="jcomments" style="margin-top:12px"></div>`;
+}
+function onRatingChange(sel){
+  if(!sel) return; const panel=sel.closest(".judge");
+  const opt=sel.options[sel.selectedIndex]; const acc=!opt||opt.dataset.acc!=="false";
+  panel.querySelectorAll(".jstage").forEach(c=>{ if(!acc) c.checked=false; c.disabled=!acc; });
+  panel.querySelector(".jstageslabel").textContent = acc?t("stages"):t("stages_no");
+}
+async function play(id){
+  const panel=document.getElementById("judge_"+cssid(id)); const errEl=panel.querySelector(".jplayerr"); errEl.textContent="";
+  const r=QUEUE.find(x=>x.audio_file_id===id);
+  try{ const s=await api("POST","/storage/v1/object/sign/"+r.bucket+"/"+r.path,{body:{expiresIn:600}});
+    const a=panel.querySelector(".jaud"); a.src=PROJECT_URL+"/storage/v1"+s.signedURL; a.classList.remove("hide"); a.play().catch(()=>{});
+  }catch(e){ errEl.textContent=e.message; }
+}
+async function submitJudgment(id){
+  const panel=document.getElementById("judge_"+cssid(id)); const errEl=panel.querySelector(".jerr"), msgEl=panel.querySelector(".jmsg");
+  errEl.textContent=""; msgEl.textContent="";
+  const r=QUEUE.find(x=>x.audio_file_id===id);
+  const rating=panel.querySelector(".jrating").value;
+  if(!rating){ errEl.textContent=LANG==="ar"?"اختر تقييماً أولاً.":"Choose a rating first."; return; }
+  const body={ p_product:PRODUCT, p_audio_file:id, p_rating:rating,
+    p_stages:[...panel.querySelectorAll(".jstage:checked")].map(c=>c.value),
+    p_defects:[...panel.querySelectorAll(".jdefect:checked")].map(c=>c.value),
+    p_note:panel.querySelector(".jnote").value||null, p_transfer:panel.querySelector(".jtransfer").value||null,
+    p_expected_version:(r.version!==undefined?r.version:null) };
+  try{ const jid=await api("POST","/rest/v1/rpc/judge_audio",{body});
+    msgEl.innerHTML=`<span class="ok">${t("saved")} ${esc(jid)}</span>`;
+    await refreshOne(id);
+  }catch(e){ errEl.textContent=e.message; }
+}
+async function approveFile(id){
+  const panel=document.getElementById("judge_"+cssid(id)); const errEl=panel.querySelector(".jerr"), msgEl=panel.querySelector(".jmsg");
+  errEl.textContent="";
+  try{ await api("POST","/rest/v1/rpc/approve_audio",{body:{p_product:PRODUCT,p_audio_file:id}});
+    msgEl.innerHTML=`<span class="ok">${t("approved")}</span>`; await refreshOne(id);
+  }catch(e){ errEl.textContent=e.message; }
+}
+async function doTransfer(id){
+  const panel=document.getElementById("judge_"+cssid(id)); const errEl=panel.querySelector(".jerr"), msgEl=panel.querySelector(".jmsg");
+  errEl.textContent="";
+  const tgt=panel.querySelector(".jtransfer").value;
+  if(!tgt){ errEl.textContent=LANG==="ar"?"اختر هدف التحويل أولاً.":"Choose a transfer target first."; return; }
+  try{ const made=await api("POST","/rest/v1/rpc/transfer_path",{body:{p_product:PRODUCT,p_audio_file:id,p_target:tgt}});
+    msgEl.innerHTML=`<span class="ok">${(LANG==="ar"?"أُنشئ: ":"created: ")+esc((made||[]).join(", "))}</span>`;
+  }catch(e){ errEl.textContent=e.message; }
+}
+async function refreshOne(id){
+  try{ const rows=await api("GET", queuePath(activeReg())+"&audio_file_id=eq."+encodeURIComponent(id));
+    if(rows&&rows.length){ const i=QUEUE.findIndex(x=>x.audio_file_id===id);
+      if(i>=0){ QUEUE[i]=rows[0]; const row=document.getElementById("row_"+cssid(id));
+        if(row){ const r=rows[0]; row.querySelector(".st").textContent=r.state_id;
+          row.querySelectorAll(".tag").forEach(e=>e.remove());
+          row.insertAdjacentHTML("beforeend", stTag(r.standing).trim()); } } }
+    const panel=document.getElementById("judge_"+cssid(id)); if(panel) loadHistory(id, panel.querySelector(".jhist"));
+  }catch(_){}
+}
+async function loadHistory(id, el){
+  if(!el) return;
+  try{ const rows=await api("GET","/rest/v1/v_judgment_history?audio_file_id=eq."+encodeURIComponent(id)+
+      "&select=id,rating_id,provisional,stage_ids,defect_ids,note,transfer_to,judged_by_name,judged_at,origin,still_holds&order=id.desc&limit=6");
+    if(!rows.length){ el.innerHTML=`<div class="hist">${t("nohist")}</div>`; return; }
+    el.innerHTML=`<div class="muted" style="margin-bottom:4px">${t("lasthist")}</div>`+rows.map(h=>{
+      const when=h.judged_at?String(h.judged_at).replace("T"," ").slice(0,16):"";
+      return `<div class="hist">#${esc(h.id)} · ${esc(ratingName(h.rating_id))}${h.provisional?" ("+t("prov")+")":""} · ${h.still_holds?t("holds"):t("fell")}`+
+        ((h.stage_ids||[]).length?" · "+esc(h.stage_ids.join(", ")):"")+
+        ((h.defect_ids||[]).length?" · "+esc(h.defect_ids.join(", ")):"")+
+        (h.transfer_to?" · "+esc(h.transfer_to):"")+(h.note?" · "+esc(h.note):"")+
+        ` · ${esc(h.origin)}${when?" · "+esc(when):""}</div>`;
+    }).join("");
+  }catch(e){ el.innerHTML=`<div class="err">${esc(e.message)}</div>`; }
+}
+
+// ---------------- experiments bar ----------------
+function renderExpBar(){
+  const bar=document.getElementById("expBar"); bar.classList.remove("hide");
+  bar.innerHTML=`<div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap">
+    <div style="flex:1; min-width:180px"><label>${t("expName")}</label><input id="expNameInp"></div>
+    <div><button class="ghost" onclick="openExp()">${t("openExp")}</button></div>
+    <div><button class="ghost" onclick="closeExp()">${t("closeExp")}</button></div>
+    <span class="err" id="expErr"></span></div>`;
+}
+async function openExp(){
+  const name=document.getElementById("expNameInp").value.trim(); const e=document.getElementById("expErr"); e.textContent="";
+  if(!name){ e.textContent=LANG==="ar"?"اكتب اسم التجربة.":"Enter an experiment name."; return; }
+  try{ await api("POST","/rest/v1/rpc/open_experiment",{body:{p_product:PRODUCT,p_name:name}}); await loadExperiments(); reload(); }
+  catch(err){ e.textContent=err.message; }
+}
+async function closeExp(){
+  const id=document.getElementById("experiment").value; const e=document.getElementById("expErr"); e.textContent="";
+  if(!id){ return; }
+  try{ await api("POST","/rest/v1/rpc/close_experiment",{body:{p_product:PRODUCT,p_id:Number(id)}}); await loadExperiments(); reload(); }
+  catch(err){ e.textContent=err.message; }
+}
+
+// ---------------- statistics ----------------
+let STATS=null;
+async function loadStats(){
+  const host=document.getElementById("statsView"); host.innerHTML=`<div class="muted" style="padding:14px">…</div>`;
+  const cols="office_key,source_id,register_id,state_id,standing,rating_id";
+  const base="/rest/v1/v_judging_queue?product_id=eq."+PRODUCT+"&retired=is.false&experiment_id=is.null&select="+cols+"&limit=5000";
+  try{ const rows=await api("GET", base); STATS=rows; renderStats(rows); }
+  catch(e){ host.innerHTML=`<div class="err" style="padding:14px">${esc(e.message)}</div>`; }
+}
+function renderStats(rows){
+  const host=document.getElementById("statsView");
+  const sources=[...new Set(rows.map(r=>r.source_id))].sort();
+  const ratingRows=(LISTS.ratings||[]).map(r=>r.id);
+  const key=(st,src)=>st+"|"+src;
+  const cnt={}; rows.forEach(r=>{ const rid=r.standing==="judged"?r.rating_id:"__unjudged"; cnt[key(rid,r.source_id)]=(cnt[key(rid,r.source_id)]||0)+1; });
+  const rowIds=ratingRows.concat(["__unjudged"]);
+  const rowLabel=id=>id==="__unjudged"?t("unjudgedRow"):ratingName(id);
+  let html=`<div style="overflow-x:auto"><table class="x"><thead><tr><th>${t("stReg")}\\${t("srcCol")}</th>`+
+    sources.map(s=>`<th class="ltr">${esc(s)}</th>`).join("")+`<th>${t("total")}</th></tr></thead><tbody>`;
+  rowIds.forEach(rid=>{
+    let tot=0;
+    html+=`<tr><td class="rh">${esc(rowLabel(rid))}</td>`+
+      sources.map(s=>{ const c=cnt[key(rid,s)]||0; tot+=c; return `<td class="c" onclick="drill('${esc(rid)}','${esc(s)}')">${c||""}</td>`; }).join("")+
+      `<td>${tot||""}</td></tr>`;
+  });
+  html+=`</tbody></table></div>`;
+  host.innerHTML=html;
+}
+function drill(rid, src){
+  // open the matching register tab; a light drill (full filtering is a later refinement)
+  const reg = (STATS||[]).find(r=>r.source_id===src)?.register_id || "fusha";
+  document.getElementById("state").value="";
+  document.getElementById("standing").value = rid==="__unjudged"?"unjudged":"judged";
+  switchTab(reg);
+}
+
+// ---------------- export ----------------
+function exportExcel(){
+  const stats=activeReg()==="stats";
+  let table;
+  if(stats){ table=document.querySelector("#statsView table.x"); }
+  else {
+    // one row per audio file from the current queue
+    const head=["office_key","المنطوق","المصدر","الحال","المنزلة","التقييم","مراحل","عيوب","ملاحظة","الملف"];
+    const trs=QUEUE.map(r=>{
+      const cells=[r.office_key, r.spoken_text, r.source_id, r.state_id, r.standing,
+        r.rating_id?ratingName(r.rating_id):"", (r.stage_ids||[]).join(" "), (r.defect_ids||[]).join(" "),
+        r.judgment_note||"", r.path||""];
+      return "<tr>"+cells.map((c,i)=>{ const ar=/[؀-ۿ]/.test(String(c));
+        return `<td style="mso-number-format:'\\@'; border:1px solid #ccc; vertical-align:middle; text-align:${ar?"right":"left"}; direction:${ar?"rtl":"ltr"}">${esc(c)}</td>`; }).join("")+"</tr>";
+    }).join("");
+    const th=head.map(h=>{ const ar=/[؀-ۿ]/.test(h);
+      return `<th style="background:#102a4c; color:#fff; border:1px solid #ccc; text-align:${ar?"right":"left"}; direction:${ar?"rtl":"ltr"}">${esc(h)}</th>`; }).join("");
+    table={ outerHTML:`<table>${th?("<tr>"+th+"</tr>"):""}${trs}</table>` };
+  }
+  if(!table){ return; }
+  const html=`<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8">
+    <style>td,th{font-family:Calibri; font-size:12px}</style></head><body>${table.outerHTML}</body></html>`;
+  const blob=new Blob(["﻿"+html],{type:"application/vnd.ms-excel"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download=(stats?"asasly-judging-stats":"asasly-judging-"+activeReg())+".xls"; a.click();
+}
+
+// ---------------- import / template (CSV) ----------------
+const IMP_COLS=["audio_file_id","text_fingerprint","version","rating","stages","defects","note"];
+function csvEsc(s){ s=(s==null?"":String(s)); return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; }
+function downloadImportTemplate(){
+  if(activeReg()==="stats") return;
+  const head=IMP_COLS.join(",");
+  const lines=QUEUE.map(r=>[r.audio_file_id, r.text_fingerprint, (r.version!=null?r.version:""),
+     r.rating_id||"", (r.stage_ids||[]).join(" "), (r.defect_ids||[]).join(" "), r.judgment_note||""].map(csvEsc).join(","));
+  const blob=new Blob(["﻿"+head+"\n"+lines.join("\n")],{type:"text/csv"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download="asasly-judging-template-"+activeReg()+".csv"; a.click();
+}
+function csvParse(text){
+  text=text.replace(/^﻿/,""); const rows=[]; let i=0,f="",row=[],q=false;
+  const push=()=>{row.push(f);f="";}; const eol=()=>{push();rows.push(row);row=[];};
+  while(i<text.length){ const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){f+='"';i+=2;continue;} q=false;i++;continue;} f+=c;i++;continue; }
+    if(c==='"'){q=true;i++;continue;} if(c===','){push();i++;continue;}
+    if(c==='\n'){eol();i++;continue;} if(c==='\r'){i++;continue;} f+=c;i++;
+  }
+  if(f.length||row.length){eol();} return rows;
+}
+async function onImportFile(ev){
+  const file=ev.target.files[0]; ev.target.value=""; if(!file) return;
+  const text=await file.text();
+  const rows=csvParse(text).filter(r=>r.length>1||(r.length===1&&r[0].trim()));
+  if(!rows.length) return;
+  const header=rows[0].map(h=>h.trim()); const idx={}; IMP_COLS.forEach(c=>idx[c]=header.indexOf(c));
+  if(idx.audio_file_id<0||idx.rating<0){ showImport(`<div class="err">${LANG==="ar"?"ترويسة غير متوقّعة؛ استعمل قالب الاستيراد.":"Unexpected header; use the import template."}</div>`); return; }
+  const data=rows.slice(1).filter(r=>r[idx.audio_file_id]&&r[idx.audio_file_id].trim());
+  const ids=[...new Set(data.map(r=>r[idx.audio_file_id].trim()))]; const cur={};
+  for(let k=0;k<ids.length;k+=100){
+    const chunk=ids.slice(k,k+100).map(x=>encodeURIComponent(x)).join(",");
+    try{ const rs=await api("GET","/rest/v1/v_judging_queue?product_id=eq."+PRODUCT+"&select=audio_file_id,text_fingerprint,version&audio_file_id=in.("+chunk+")&limit=200");
+      rs.forEach(x=>cur[x.audio_file_id]={fp:x.text_fingerprint,ver:x.version}); }catch(_){}
+  }
+  const racc={}; (LISTS.ratings||[]).forEach(r=>racc[r.id]=r.acceptable);
+  const sSet=new Set((LISTS.stages||[]).map(x=>x.id)), dSet=new Set((LISTS.defects||[]).map(x=>x.id));
+  const parsed=data.map(r=>{
+    const id=r[idx.audio_file_id].trim(), rating=(idx.rating>=0?r[idx.rating]:"").trim();
+    const stages=(idx.stages>=0?r[idx.stages]:"").trim().split(/[ ,]+/).filter(Boolean);
+    const defects=(idx.defects>=0?r[idx.defects]:"").trim().split(/[ ,]+/).filter(Boolean);
+    const note=(idx.note>=0&&r[idx.note])?r[idx.note]:null;
+    const fp=(idx.text_fingerprint>=0?r[idx.text_fingerprint]:"").trim();
+    const ver=(idx.version>=0?r[idx.version]:"").trim(); const c=cur[id];
+    let reason=null;
+    if(!c) reason="reason_missing";
+    else if(!(rating in racc)) reason="reason_rating";
+    else if(!racc[rating]&&stages.length) reason="reason_rejstage";
+    else if(stages.some(s=>!sSet.has(s))) reason="reason_stage";
+    else if(defects.some(d=>!dSet.has(d))) reason="reason_defect";
+    else if(fp&&c.fp&&fp!==c.fp) reason="reason_fp";
+    return {id,rating,stages,defects,note, ver: ver!==""?Number(ver):(c?c.ver:null), reason};
+  });
+  window.__IMP=parsed;
+  const valid=parsed.filter(p=>!p.reason), invalid=parsed.filter(p=>p.reason);
+  let html=`<div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap">
+    <strong>${t("impTitle")}</strong><span class="ok">${valid.length} ${t("impValid")}</span>
+    <span class="err">${invalid.length} ${t("impInvalid")}</span><div class="spacer"></div>
+    <button class="primary" onclick="confirmImport()" ${valid.length?"":"disabled"}>${t("impSave")}</button>
+    <button class="ghost" onclick="document.getElementById('importPanel').classList.add('hide')">${t("impCancel")}</button></div>`;
+  if(invalid.length) html+=`<div class="hist" style="margin-top:8px">`+invalid.slice(0,40).map(p=>esc(p.id)+" — "+t(p.reason)).join("<br>")+(invalid.length>40?"<br>…":"")+`</div>`;
+  html+=`<div class="err" id="impResult" style="margin-top:8px"></div>`;
+  showImport(html);
+}
+function showImport(html){ const el=document.getElementById("importPanel"); el.innerHTML=html; el.classList.remove("hide"); el.scrollIntoView({behavior:"smooth",block:"center"}); }
+async function confirmImport(){
+  const parsed=(window.__IMP||[]).filter(p=>!p.reason); const res=document.getElementById("impResult");
+  let done=0,fail=0,msgs=[];
+  for(const p of parsed){
+    try{ await api("POST","/rest/v1/rpc/judge_audio",{body:{p_product:PRODUCT,p_audio_file:p.id,p_rating:p.rating,
+        p_stages:p.stages,p_defects:p.defects,p_note:p.note,p_expected_version:(p.ver!=null&&!isNaN(p.ver)?p.ver:null),p_origin:"import"}});
+      done++; }catch(e){ fail++; if(msgs.length<20) msgs.push(esc(p.id)+" — "+esc(e.message)); }
+  }
+  res.innerHTML=`<span class="ok">${t("impDone")}: ${done}</span>`+(fail?` · <span class="err">${t("impConflict")}: ${fail}</span>`:"")+
+    (msgs.length?`<div class="hist">`+msgs.join("<br>")+`</div>`:"");
+  reload();
+}
+
+// ---------------- review comments (0014) ----------------
+async function loadComments(id, el){
+  if(!el) return;
+  try{
+    const rows=await api("GET","/rest/v1/v_review_comments?product_id=eq."+PRODUCT+"&table_name=eq.audio_files&row_key=eq."+
+      encodeURIComponent(id)+"&select=id,body,author_name,created_at,resolved_at,resolver_name&order=id.asc");
+    let h=`<label>${t("comments")}</label>`;
+    h+= rows.length ? rows.map(c=>`<div class="hist">${esc(c.author_name||"")}: ${esc(c.body)}`+
+        (c.resolved_at?` · <span class="ok">${t("resolved")}</span>`:` · <button class="mini ghost" onclick="resolveComment(${c.id},'${esc(id)}')">${t("resolve")}</button>`)+`</div>`).join("")
+      : `<div class="hist">${t("noComments")}</div>`;
+    h+=`<div style="display:flex; gap:8px; margin-top:8px"><input class="jcbody" placeholder="${t("addComment")}">`+
+       `<button class="ghost mini" onclick="addComment('${esc(id)}')">${t("addComment")}</button></div><div class="err jcerr"></div>`;
+    el.innerHTML=h;
+  }catch(_){ el.innerHTML=""; }   // 0014 not applied -> comments stay hidden
+}
+async function addComment(id){
+  const panel=document.getElementById("judge_"+cssid(id)); const inp=panel.querySelector(".jcbody"), err=panel.querySelector(".jcerr");
+  err.textContent=""; const body=inp.value.trim(); if(!body) return;
+  try{ await api("POST","/rest/v1/rpc/add_review_comment",{body:{p_product:PRODUCT,p_table:"audio_files",p_row:id,p_body:body}});
+    inp.value=""; loadComments(id, panel.querySelector(".jcomments")); }catch(e){ err.textContent=e.message; }
+}
+async function resolveComment(cid, id){
+  const panel=document.getElementById("judge_"+cssid(id)); const err=panel.querySelector(".jcerr"); if(err) err.textContent="";
+  try{ await api("POST","/rest/v1/rpc/resolve_review_comment",{body:{p_id:cid}}); loadComments(id, panel.querySelector(".jcomments")); }
+  catch(e){ if(err) err.textContent=e.message; }
+}
+
+// ---------------- admin: authors & invites (0014) ----------------
+async function loadAdmin(){
+  const host=document.getElementById("adminView"); host.innerHTML=`<div class="muted" style="padding:14px">…</div>`;
+  try{
+    const [authors,invites,roles]=await Promise.all([
+      api("GET","/rest/v1/v_authors?select=id,display_name,email,active,roles&order=joined_at.asc"),
+      api("GET","/rest/v1/author_invites?select=id,email,role_id,product_id,state_id,expires_at&state_id=eq.pending&order=id.desc").catch(()=>[]),
+      api("GET","/rest/v1/roles?select=id&order=id.asc").catch(()=>[{id:"writer"},{id:"reviewer"},{id:"approver"},{id:"admin"}]) ]);
+    renderAdmin(authors,invites,roles);
+  }catch(e){ host.innerHTML=`<div class="err" style="padding:14px">${esc(e.message)}</div>`; }
+}
+function roleOptions(roles){ return roles.map(r=>`<option value="${esc(r.id)}">${esc(r.id)}</option>`).join(""); }
+function renderAdmin(authors,invites,roles){
+  const host=document.getElementById("adminView");
+  let h=`<div class="card"><strong>${t("invite")}</strong>
+    <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; align-items:flex-end">
+      <div style="flex:1; min-width:180px"><input id="invEmail" type="email" dir="ltr" placeholder="name@example.com"></div>
+      <div><select id="invRole" class="ltr">${roleOptions(roles)}</select></div>
+      <div><button class="primary" onclick="inviteAuthor()">${t("send")}</button></div>
+    </div><div class="err" id="invErr" style="margin-top:6px"></div></div>`;
+  h+=`<div class="card"><strong>${t("authors")}</strong><div style="overflow-x:auto; margin-top:8px"><table class="x">
+    <thead><tr><th>${t("namePh")}</th><th>${t("email")}</th><th>${t("roleWord")}</th><th></th></tr></thead><tbody>`+
+    authors.map(a=>`<tr>
+      <td class="rh">${esc(a.display_name||"")}${a.active?"":" ("+t("inactive")+")"}</td>
+      <td class="ltr">${esc(a.email||"")}</td>
+      <td>${(a.roles||[]).map(r=>{ const b=String(r).split("@")[0];
+            return `<span class="pill">${esc(b)} <a href="#" onclick="revokeRole('${esc(a.id)}','${esc(b)}');return false">×</a></span>`; }).join(" ")}
+        <div style="margin-top:4px"><select class="ltr" id="gr_${esc(a.id)}">${roleOptions(roles)}</select>
+          <button class="mini ghost" onclick="grantRole('${esc(a.id)}')">${t("grant")}</button></div></td>
+      <td><button class="mini ghost" onclick="setActive('${esc(a.id)}',${a.active?"false":"true"})">${a.active?t("deactivate"):t("activate")}</button></td>
+    </tr>`).join("")+`</tbody></table></div></div>`;
+  if(invites&&invites.length){
+    h+=`<div class="card"><strong>${t("invites")}</strong><div style="margin-top:8px">`+
+      invites.map(i=>`<div class="hist">${esc(i.email)} · ${esc(i.role_id)} · ${esc(String(i.expires_at||"").slice(0,10))} `+
+        `<button class="mini ghost" onclick="revokeInvite(${i.id})">${t("revoke")}</button></div>`).join("")+`</div></div>`;
+  }
+  host.innerHTML=h;
+}
+async function inviteAuthor(){
+  const err=document.getElementById("invErr"); err.textContent="";
+  const email=document.getElementById("invEmail").value.trim(), role=document.getElementById("invRole").value;
+  if(!email){ err.textContent=LANG==="ar"?"أدخل البريد.":"Enter an email."; return; }
+  try{ await api("POST","/rest/v1/rpc/invite_author",{body:{p_email:email,p_roles:[role]}}); loadAdmin(); }catch(e){ err.textContent=e.message; }
+}
+async function grantRole(uid){ const role=document.getElementById("gr_"+cssid(uid)).value;
+  try{ await api("POST","/rest/v1/rpc/grant_role",{body:{p_author:uid,p_role:role}}); loadAdmin(); }catch(e){ alert(e.message); } }
+async function revokeRole(uid, role){
+  try{ await api("POST","/rest/v1/rpc/revoke_role",{body:{p_author:uid,p_role:role}}); loadAdmin(); }catch(e){ alert(e.message); } }
+async function setActive(uid, active){
+  try{ await api("POST","/rest/v1/rpc/set_author_active",{body:{p_author:uid,p_active:active}}); loadAdmin(); }catch(e){ alert(e.message); } }
+async function revokeInvite(id){
+  try{ await api("POST","/rest/v1/rpc/revoke_invite",{body:{p_id:id}}); loadAdmin(); }catch(e){ alert(e.message); } }
+
+// ---------------- boot ----------------
+if(!cfgReady()){ document.getElementById("cfgNotice").classList.remove("hide"); }
+applyLang();
+</script>
+</body>
+</html>
