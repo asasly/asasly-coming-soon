@@ -32,15 +32,17 @@
   .wrap{max-width:1120px; margin:0 auto; padding:0 16px 56px}
   .ar{font-family:"IBM Plex Sans Arabic",sans-serif; direction:rtl; unicode-bidi:plaintext}
   .ltr{direction:ltr; unicode-bidi:isolate; text-align:left; font-family:"IBM Plex Sans","Noto Sans",sans-serif}
-  header.bar{position:sticky; top:0; z-index:20; background:var(--panel); border-bottom:1px solid var(--line);
+  header.bar{position:sticky; top:0; z-index:20; background:var(--navy); color:#fff; border-bottom:3px solid var(--gold);
     display:flex; align-items:center; gap:10px; padding:10px 16px; margin:0 -16px; flex-wrap:wrap}
-  header.bar h1{font-size:16px; font-weight:600; margin:0; white-space:nowrap}
+  header.bar h1{font-size:19px; font-weight:600; margin:0; white-space:nowrap; color:#fff;
+    font-family:"El Messiri","IBM Plex Sans Arabic",serif; letter-spacing:.3px}
   .spacer{flex:1}
-  .who{font-size:var(--small); color:var(--muted)}
+  .who{font-size:var(--small); color:#bcd0e6}
   .tabs{display:flex; gap:4px}
-  .tab{font-size:var(--base); padding:7px 14px; border:1px solid var(--line); background:var(--panel);
-    border-radius:8px; cursor:pointer; color:var(--muted); min-height:38px}
-  .tab.on{background:var(--blue); color:var(--blue-ink); border-color:var(--blue)}
+  .tab{font-size:var(--base); padding:7px 14px; border:1px solid var(--navy-2); background:transparent;
+    border-radius:8px; cursor:pointer; color:#cfe0f2; min-height:38px}
+  .tab.on{background:var(--gold); color:var(--navy); border-color:var(--gold); font-weight:600}
+  header.bar #langBtn, header.bar #logout{background:transparent; color:#eaf1f9; border-color:var(--navy-2)}
   button{font-family:inherit; font-size:var(--base); cursor:pointer; border:1px solid var(--line);
     background:var(--panel); color:var(--ink); border-radius:8px; padding:8px 13px; min-height:38px}
   button.primary{background:var(--blue); color:var(--blue-ink); border-color:var(--blue)}
@@ -56,7 +58,7 @@
     display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap; border-bottom:1px solid var(--line)}
   .toolbar .fld{flex:0 0 auto; min-width:140px}
   .muted{color:var(--muted); font-size:var(--small)}
-  .word{font-size:var(--word); font-weight:500; font-family:"IBM Plex Sans Arabic",sans-serif; direction:rtl; unicode-bidi:plaintext}
+  .word{font-size:var(--word); font-weight:600; font-family:"El Messiri","IBM Plex Sans Arabic",serif; color:var(--navy); direction:rtl; unicode-bidi:plaintext}
   .pill{display:inline-block; font-size:var(--small); color:var(--muted); border:1px solid var(--line);
     border-radius:999px; padding:1px 9px; margin-inline-start:6px}
   .notice{background:var(--warnbg); color:var(--warn); border:1px solid #efd9a0; border-radius:8px; padding:10px 12px; font-size:var(--small); margin:16px 0}
@@ -69,7 +71,8 @@
   .st{font-size:var(--small); color:var(--muted)}
   /* lesson group */
   .lesson{border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); margin:10px 0; overflow:hidden}
-  .lhead{display:flex; align-items:center; gap:10px; padding:9px 12px; cursor:pointer; background:#fbfcfd; border-bottom:1px solid var(--line)}
+  .lhead{display:flex; align-items:center; gap:10px; padding:9px 12px; cursor:pointer; background:var(--soft); border-bottom:1px solid var(--line)}
+  .lhead .lt{color:var(--navy)}
   .lhead .arrow{font-size:12px; color:var(--muted); transition:transform .15s}
   .lesson.collapsed .lhead{border-bottom:none}
   .lesson.collapsed .arrow{transform:rotate(-90deg)}
@@ -82,7 +85,7 @@
   .arow{display:flex; align-items:center; gap:10px; padding:8px 12px; border-top:1px solid var(--line); cursor:pointer; flex-wrap:wrap}
   .arow:first-child{border-top:none}
   .arow:hover{background:var(--soft)}
-  .arow.open{background:var(--soft)}
+  .arow.open{background:var(--soft); border-inline-start:3px solid var(--gold); padding-inline-start:9px}
   .arow .k{font-size:var(--small); color:var(--muted); min-width:72px}
   .arow .w{flex:1; min-width:90px}
   .arow .src{font-size:var(--small); color:var(--muted); min-width:120px}
@@ -93,12 +96,71 @@
   .checks label{display:flex; align-items:center; gap:6px; margin:0; color:var(--ink); font-size:var(--base)}
   .checks input{width:auto; min-height:0}
   audio{width:100%; max-width:420px; margin-top:8px}
+  .jwave{width:150px; height:34px; border:1px solid var(--line); border-radius:6px; background:var(--soft); vertical-align:middle}
   .hist{font-size:var(--small); color:var(--muted); border-top:1px dashed var(--line); padding-top:5px; margin-top:5px}
   .hide{display:none !important}
+  /* --- inline judging band + sounds list --- */
+  .arow .sn{font-size:var(--small); color:var(--muted); min-width:26px; text-align:center; flex:0 0 auto}
+  .arow .arrow{color:var(--muted); font-size:13px; transition:transform .15s; flex:0 0 auto}
+  .arow.open .arrow{transform:rotate(-90deg)}
+  .flatcard{border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); margin:10px 0; overflow:hidden}
+  .flatcard .arow:first-child{border-top:none}
+  .row-fields{display:flex; flex-wrap:wrap; align-items:center; gap:10px}
+  .wave{display:flex; align-items:center; gap:8px; flex:0 0 auto}
+  .play{width:30px; height:30px; border-radius:50%; border:none; background:var(--blue); color:#fff; font-size:13px; cursor:pointer; min-height:30px; padding:0}
+  canvas.wavebox{width:116px; height:26px; border-radius:6px; background:#fff; border:1px solid var(--line); vertical-align:middle}
+  .group{display:flex; align-items:center; gap:6px; flex:0 0 auto}
+  .glabel{font-size:var(--small); color:var(--muted)}
+  .chips{display:flex; gap:5px; flex-wrap:wrap}
+  .chip{font-size:var(--small); padding:4px 10px; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer; line-height:1.3; min-height:30px}
+  .chip:hover{border-color:var(--blue)}
+  .chip.sel{background:var(--blue); color:#fff; border-color:var(--blue)}
+  .chip.sel.warn{background:var(--gold); color:#1a1300; border-color:var(--gold)}
+  .chip.sel.bad{background:var(--bad); color:#fff; border-color:var(--bad)}
+  .picker{position:relative}
+  .row-fields .picker{flex:1 1 150px; min-width:150px}
+  .picker>.pbtn{width:100%; font-size:var(--small); padding:6px 11px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--ink); cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:7px; min-height:36px}
+  .picker>.pbtn .lab{display:flex; align-items:center; gap:6px; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis}
+  .picker>.pbtn .glab{color:var(--muted)}
+  .picker>.pbtn .cv{display:flex; align-items:center; gap:6px; color:var(--muted); font-size:11px; flex:0 0 auto}
+  .picker>.pbtn .cnt{background:var(--blue); color:#fff; border-radius:999px; font-size:11px; padding:0 6px; min-width:18px; text-align:center}
+  .picker>.pbtn .cnt.zero{display:none}
+  .picker.multi>.pbtn{background:#eaf1fa; border-color:#9cc0e6; box-shadow:3px 3px 0 -1px var(--panel), 4px 4px 0 -1px #9cc0e6}
+  .picker.multi>.pbtn .ic{color:var(--blue); flex:0 0 auto}
+  .picker.disabled>.pbtn{opacity:.4; pointer-events:none}
+  .picker .panel{position:absolute; top:calc(100% + 8px); inset-inline-start:0; z-index:30; display:none; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px; min-width:235px; box-shadow:0 12px 30px rgba(10,20,40,.18)}
+  .picker.open .panel{display:block}
+  .picker .ptitle{font-size:11px; color:var(--muted); padding:2px 8px 6px}
+  .picker .opt{display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:7px; cursor:pointer; font-size:var(--base)}
+  .picker .opt:hover{background:rgba(58,110,165,.08)}
+  .picker .opt input{accent-color:var(--blue); width:16px; height:16px; min-height:0}
+  .row-act{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:10px}
+  .row-act .note{flex:1 1 220px; min-width:180px}
+  .row-act .note input{width:100%}
+  .save{font-size:var(--base); padding:7px 16px; border-radius:8px; border:none; background:var(--gold); color:#1a1300; font-weight:600; cursor:pointer; flex:0 0 auto; min-height:38px}
+  .seg{display:flex; border:1px solid var(--line); border-radius:9px; overflow:hidden; background:var(--panel)}
+  .seg button{border:none; background:transparent; color:var(--ink); font-family:inherit; font-size:var(--small); padding:8px 13px; cursor:pointer; min-height:36px}
+  .seg button.on{background:var(--blue); color:#fff; font-weight:600}
+  .toolbar .search{flex:1 1 200px; min-width:150px; order:99}
+  .toolbar .search input{width:100%}
+  .row-foot{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:10px; padding-top:8px; border-top:1px dashed var(--line)}
+  .jhist,.jcomments{display:contents}
+  .histsum{order:1; flex:1 1 180px; min-width:150px; cursor:pointer; font-size:var(--small); color:var(--muted); user-select:none}
+  .histsum .arrow{display:inline-block; font-size:11px; transition:transform .15s}
+  .histsum.open .arrow{transform:rotate(180deg)}
+  .cbtn{order:2; flex:0 0 auto; font-size:var(--small); color:var(--muted); background:transparent; border:1px solid var(--line); border-radius:999px; padding:5px 13px; cursor:pointer; min-height:32px; user-select:none}
+  .cbtn.open{border-color:var(--blue); color:var(--blue)}
+  .histdetails{order:3; flex-basis:100%; margin-top:4px}
+  .cpanel{order:4; flex-basis:100%; margin-top:4px}
+  .picker.rating .rcur{font-weight:600}
+  .picker.rating .rcur.ok{color:var(--ok)}
+  .picker.rating .rcur.warn{color:var(--gold-deep)}
+  .picker.rating .rcur.bad{color:var(--bad)}
+  .picker .opt-bad{color:var(--bad)} .picker .opt-warn{color:var(--gold-deep)} .picker .opt-ok{color:var(--ink)}
   /* stats */
   table.x{width:100%; border-collapse:collapse; font-size:var(--small)}
   table.x th, table.x td{border:1px solid var(--line); padding:6px 8px; text-align:center}
-  table.x th{background:#102a4c; color:#fff; font-weight:500}
+  table.x th{background:var(--navy); color:#fff; font-weight:500}
   table.x td.rh{background:#fbfcfd; text-align:start; font-weight:500}
   table.x td.c{cursor:pointer} table.x td.c:hover{background:var(--soft)}
   @media (max-width:620px){
@@ -107,6 +169,8 @@
     .toolbar{top:0; position:static}
     .prog{display:none}
     .arow .src{min-width:0}
+    .row-fields .picker{flex-basis:100%}
+    .row-act .note{flex-basis:100%}
   }
   @media print{
     header.bar,.toolbar,.tabs,button,.notice,#loginCard{display:none !important}
@@ -146,6 +210,10 @@
 
   <div id="main" class="hide">
     <div class="toolbar" id="toolbar">
+      <div class="seg" id="viewSeg">
+        <button class="on" data-v="flat" data-t="v_flat" onclick="setView('flat')">قائمة الأصوات</button>
+        <button data-v="grouped" data-t="v_grouped" onclick="setView('grouped')">مجموعات الأصوات</button>
+      </div>
       <div class="fld">
         <label data-t="mode">الوضع</label>
         <select id="mode" onchange="onModeChange()">
@@ -170,14 +238,14 @@
         <label data-t="state">الحال</label>
         <select id="state" onchange="reload()">
           <option value="" data-t="all">الكل</option>
-          <option value="draft">draft</option>
-          <option value="provisional">provisional</option>
-          <option value="approved">approved</option>
-          <option value="published">published</option>
+          <option value="draft" data-t="st_draft">مسودّة</option>
+          <option value="provisional" data-t="st_provisional">مبدئي</option>
+          <option value="approved" data-t="st_approved">معتمد</option>
+          <option value="published" data-t="st_published">منشور</option>
         </select>
       </div>
+      <div class="fld search" id="searchFld"><input id="q" type="search" oninput="onSearch()" placeholder="بحث بالكلمة أو المفتاح…"></div>
       <div><button class="ghost" data-t="reload" onclick="reload()">تحديث</button></div>
-      <div class="spacer"></div>
       <div><button class="ghost mini" data-t="xls" onclick="exportExcel()">تصدير إكسل</button></div>
       <div><button class="ghost mini" data-t="print" onclick="window.print()">طباعة</button></div>
       <div><button class="ghost mini" data-t="tmpl" onclick="downloadImportTemplate()">قالب استيراد</button></div>
@@ -206,6 +274,7 @@ const PRODUCT = "arabic";
 let TOKEN=null, UID=null, ME=null, MY_ROLES=null;   // MY_ROLES: Set, or null = unknown (then the DB guards)
 let LANG = (localStorage.getItem("asasly_judge_lang") || "ar");
 let LISTS={}, LESSONS={}, QUEUE=[], OPEN=null, EXPERIMENTS=[];
+let VIEW=(localStorage.getItem("asasly_judge_view")||"flat"), SEARCH="", PROV=new Set();
 
 const T = {
   ar:{ title:"لوح الحكم", tab_fusha:"فصحى", tab_coll:"عامية", tab_stats:"الإحصاء", logout:"خروج",
@@ -228,7 +297,12 @@ const T = {
     comments:"تعليقات المراجعة", addComment:"أضف تعليقاً", resolve:"حُلّ", noComments:"لا تعليقات", resolved:"محلول",
     admin_tab:"الإدارة", authors:"المؤلّفون", invites:"الدعوات المعلّقة", invite:"ادعُ مؤلّفاً", roleWord:"الدور",
     grant:"امنح", revoke:"اسحب", activate:"فعّل", deactivate:"عطّل", active:"مفعّل", inactive:"معطّل",
-    send:"أرسل الدعوة", namePh:"الاسم (اختياري)" },
+    send:"أرسل الدعوة", namePh:"الاسم (اختياري)",
+    v_flat:"قائمة الأصوات", v_grouped:"مجموعات الأصوات", search_ph:"بحث بالكلمة أو المفتاح…", rating_s:"التقييم",
+    stages_s:"مرحلة القبول", defects_s:"أنواع العيوب", path_s:"المسار", pick_one:"اختر واحداً", pick_many:"اختر واحداً أو أكثر",
+    sounds:"صوت", groups:"مجموعات", noteph:"ملاحظة حرّة مستقلّة عن العيوب (اختياري)…",
+    j_once:"حُكم عليه مرّة واحدة", j_twice:"حُكم عليه مرّتين", j_many:"حُكم عليه {n} مرّة", histLast:"آخرها",
+    cmtBtn:"تعليقات", st_draft:"مسودّة", st_provisional:"مبدئي", st_approved:"معتمد", st_published:"منشور" },
   en:{ title:"Judging Board", tab_fusha:"Fusha", tab_coll:"Colloquial", tab_stats:"Statistics", logout:"Sign out",
     email:"Email", pw:"Password", login:"Sign in", pwnote:"The password issues a session token once; it is never stored in the browser.",
     mode:"Mode", mode_prod:"Production", mode_exp:"Experiments", experiment:"Experiment", standing:"Standing", state:"State",
@@ -249,12 +323,20 @@ const T = {
     comments:"Review comments", addComment:"Add a comment", resolve:"Resolve", noComments:"No comments", resolved:"resolved",
     admin_tab:"Admin", authors:"Authors", invites:"Pending invites", invite:"Invite author", roleWord:"Role",
     grant:"Grant", revoke:"Revoke", activate:"Activate", deactivate:"Deactivate", active:"active", inactive:"inactive",
-    send:"Send invite", namePh:"Name (optional)" }
+    send:"Send invite", namePh:"Name (optional)",
+    v_flat:"Sounds list", v_grouped:"Sound groups", search_ph:"Search by word or key…", rating_s:"Rating",
+    stages_s:"Acceptance stage", defects_s:"Defect types", path_s:"Path", pick_one:"Choose one", pick_many:"Choose one or more",
+    sounds:"sounds", groups:"groups", noteph:"Free note, independent of defects (optional)…",
+    j_once:"judged once", j_twice:"judged twice", j_many:"judged {n} times", histLast:"last",
+    cmtBtn:"Comments", st_draft:"draft", st_provisional:"provisional", st_approved:"approved", st_published:"published" }
 };
 function t(k){ return (T[LANG] && T[LANG][k]) || (T.ar[k]) || k; }
 
 function cfgReady(){ return ANON_KEY.trim().length > 0; }
 function esc(s){ return (s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function fmtTime(iso){ if(!iso) return ""; const d=new Date(iso); if(isNaN(d.getTime())) return String(iso).slice(0,16);
+  const p=n=>String(n).padStart(2,"0");
+  return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+" "+p(d.getHours())+":"+p(d.getMinutes()); }  // the viewer's local time
 function nameOf(r){ const n=r&&r.names; if(!n) return (r&&r.id)||""; return (LANG==="ar"?n.AR:n.EN)||n.AR||n.EN||r.id; }
 function activeReg(){ const el=document.querySelector(".tab.on"); return el?el.dataset.reg:"fusha"; }
 
@@ -274,6 +356,8 @@ function applyLang(){
   document.documentElement.lang = LANG;
   document.getElementById("langBtn").textContent = LANG==="ar"?"English":"العربية";
   document.querySelectorAll("[data-t]").forEach(el=>{ el.textContent=t(el.dataset.t); });
+  document.querySelectorAll("#viewSeg button").forEach(b=>b.classList.toggle("on", b.dataset.v===VIEW));
+  const _q=document.getElementById("q"); if(_q) _q.placeholder=t("search_ph");
   if(TOKEN){ renderQueue(); }   // re-render names in the chosen language
 }
 function toggleLang(){
@@ -334,12 +418,14 @@ function hasRole(r){ return MY_ROLES===null ? true : MY_ROLES.has(r); }
 
 // ---------------- managed lists + lessons ----------------
 async function loadLists(){
-  const [ratings,stages,defects,targets]=await Promise.all([
+  const [ratings,stages,defects,targets,effects]=await Promise.all([
     api("GET","/rest/v1/v_audio_ratings?select=id,rank,acceptable,shown,names&shown=is.true&order=rank.asc"),
     api("GET","/rest/v1/v_acceptance_stages?select=id,rank,shown,names&shown=is.true&order=rank.asc"),
     api("GET","/rest/v1/v_audio_defects?select=id,rank,kind,shown,names&shown=is.true&order=rank.asc"),
-    api("GET","/rest/v1/v_path_targets?select=id,rank,names&order=rank.asc") ]);
+    api("GET","/rest/v1/v_path_targets?select=id,rank,names&order=rank.asc"),
+    api("GET","/rest/v1/rating_effects?product_id=eq."+PRODUCT+"&select=rating_id,provisional").catch(()=>[]) ]);
   LISTS={ratings,stages,defects,targets};
+  PROV=new Set((effects||[]).filter(e=>e.provisional).map(e=>e.rating_id));
 }
 async function loadLessons(){
   try{ const rows=await api("GET","/rest/v1/lessons?product_id=eq."+PRODUCT+"&select=id,code,title");
@@ -401,41 +487,62 @@ function groupLabel(key){
   if(key==="__none") return t("noLesson");
   const l=LESSONS[key]; return l ? (l.code+" · "+l.title) : key;
 }
-function renderQueue(){
-  const host=document.getElementById("queueView");
-  document.getElementById("count").textContent = QUEUE.length+" "+t("files");
-  if(!QUEUE.length){ host.innerHTML='<div class="muted" style="padding:14px">'+t("noFiles")+'</div>'; return; }
-  const groups={}; QUEUE.forEach(r=>{ const k=groupKey(r); (groups[k]=groups[k]||[]).push(r); });
+function setView(v){ VIEW=v; localStorage.setItem("asasly_judge_view",v);
+  document.querySelectorAll("#viewSeg button").forEach(b=>b.classList.toggle("on", b.dataset.v===v));
+  OPEN=null; renderQueue(); }
+function onSearch(){ SEARCH=(document.getElementById("q").value||"").trim(); OPEN=null; renderQueue(); }
+function renderQueue(){ const host=document.getElementById("queueView"); if(VIEW==="flat") renderFlat(host); else renderGrouped(host); }
+function renderFlat(host){
+  const seen=new Set(); let rows=[];
+  QUEUE.forEach(r=>{ if(!seen.has(r.audio_file_id)){ seen.add(r.audio_file_id); rows.push(r); } });
+  if(SEARCH){ const q=SEARCH.toLowerCase(); rows=rows.filter(r=>(r.spoken_text||"").indexOf(SEARCH)>=0||(r.office_key||"").toLowerCase().indexOf(q)>=0); }
+  document.getElementById("count").textContent = rows.length+" "+t("sounds");
+  if(!rows.length){ host.innerHTML='<div class="muted" style="padding:14px">'+t("noFiles")+'</div>'; return; }
+  host.innerHTML='<div class="flatcard">'+rows.map((r,i)=>rowHtml(r,i+1)).join("")+'</div>';
+}
+function renderGrouped(host){
+  const q=SEARCH?SEARCH.toLowerCase():"";
+  const match=r=> !SEARCH || (r.spoken_text||"").indexOf(SEARCH)>=0 || (r.office_key||"").toLowerCase().indexOf(q)>=0;
+  const groups={}; QUEUE.forEach(r=>{ if(!match(r)) return; const k=groupKey(r); (groups[k]=groups[k]||[]).push(r); });
   const keys=Object.keys(groups).sort((a,b)=>groupLabel(a).localeCompare(groupLabel(b),"ar"));
+  const total=keys.reduce((s,k)=>s+groups[k].length,0);
+  document.getElementById("count").textContent = SEARCH ? (total+" "+t("sounds")) : (QUEUE.length+" "+t("files"));
+  if(!keys.length){ host.innerHTML='<div class="muted" style="padding:14px">'+t("noFiles")+'</div>'; return; }
   host.innerHTML=keys.map(k=>{
     const rows=groups[k];
     const appr=rows.filter(r=>r.state_id==="approved"||r.state_id==="published").length;
     const pct=Math.round(appr*100/rows.length);
-    return `<div class="lesson" data-g="${esc(k)}">
-      <div class="lhead" onclick="this.parentNode.classList.toggle('collapsed')">
+    return `<div class="lesson${SEARCH?"":" collapsed"}" data-g="${esc(k)}">
+      <div class="lhead" onclick="accToggle(this)">
         <span class="arrow">▾</span>
         <span class="lt ar">${esc(groupLabel(k))}</span>
         <span class="lcount">${t("approved")} ${appr} / ${rows.length}</span>
         <div class="spacer"></div>
         <div class="prog"><i style="width:${pct}%"></i></div>
       </div>
-      <div class="lbody">${rows.map(rowHtml).join("")}</div>
+      <div class="lbody">${rows.map((r,i)=>rowHtml(r,i+1)).join("")}</div>
     </div>`;
   }).join("");
 }
+function accToggle(head){ const l=head.parentNode; const wasOpen=!l.classList.contains("collapsed");
+  l.parentNode.querySelectorAll(".lesson").forEach(x=>{ if(x!==l) x.classList.add("collapsed"); });
+  l.classList.toggle("collapsed", wasOpen); }
 function stTag(s){ const n=s==="judged"?t("s_judged"):s==="stale"?t("s_stale"):t("s_unjudged"); return `<span class="tag ${s}">${n}</span>`; }
-function rowHtml(r){
+function rowHtml(r, sn){
   const rt = r.standing==="judged" && r.rating_id ? ratingName(r.rating_id)+(r.provisional?" ("+t("prov")+")":"") : "";
   return `<div class="arow" id="row_${esc(r.audio_file_id)}" onclick="toggleJudge('${esc(r.audio_file_id)}')">
+    <span class="sn">${sn||""}</span>
+    <span class="arrow">▾</span>
     <span class="k ltr">${esc(r.office_key)}</span>
     <span class="w word">${esc(r.spoken_text)}</span>
     <span class="src ltr">${esc(r.source_id)}</span>
-    <span class="st">${esc(r.state_id)}</span>
+    <span class="st">${esc(stateName(r.state_id))}</span>
     <span class="rt">${rt}</span>
     ${stTag(r.standing)}
   </div><div class="judge hide" id="judge_${esc(r.audio_file_id)}"></div>`;
 }
 function ratingName(id){ const r=(LISTS.ratings||[]).find(x=>x.id===id); return r?nameOf(r):id; }
+function stateName(s){ if(!s) return ""; const k="st_"+s, v=t(k); return v===k?s:v; }
 
 // ---------------- inline judge ----------------
 function toggleJudge(id){
@@ -445,62 +552,121 @@ function toggleJudge(id){
     if(p){p.classList.add("hide");} if(rr){rr.classList.remove("open");} }
   OPEN=id; row.classList.add("open"); panel.classList.remove("hide");
   panel.innerHTML=judgeHtml(QUEUE.find(r=>r.audio_file_id===id));
-  const sel=panel.querySelector(".jrating"); onRatingChange(sel);
+  initBand(panel);
   loadHistory(id, panel.querySelector(".jhist"));
   loadComments(id, panel.querySelector(".jcomments"));
 }
 function cssid(id){ return id; }   // dynamic ids are used with getElementById (literal), not querySelector; the id charset is [A-Za-z0-9_.:-]
+const CHECKICON='<svg class="ic" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><polyline points="0.8,3.6 2.1,4.9 4,2.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="3.6" x2="15" y2="3.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><polyline points="0.8,8 2.1,9.3 4,6.8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><polyline points="0.8,12.4 2.1,13.7 4,11.2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="12.4" x2="15" y2="12.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>';
+function multiPicker(kind, label, items, selected){
+  const opts=(items||[]).map(x=>`<label class="opt"><input type="checkbox" class="j${kind}" value="${esc(x.id)}" ${selected.indexOf(x.id)>=0?"checked":""} onchange="syncCount(this.closest('.picker'))"> ${esc(nameOf(x))}</label>`).join("");
+  const n=selected.length;
+  return `<div class="picker multi" data-k="${kind}">
+    <button type="button" class="pbtn" onclick="togglePanel(this.closest('.picker'))"><span class="lab">${CHECKICON}<span>${esc(label)}</span></span> <span class="cv"><span class="cnt${n?"":" zero"}">${n}</span> ▾</span></button>
+    <div class="panel"><div class="ptitle">${t("pick_many")}</div>${opts}</div></div>`;
+}
+function transferPicker(r){
+  const cur=r.transfer_to||"";
+  const items=[{id:"",nm:t("none")}].concat((LISTS.targets||[]).map(x=>({id:x.id,nm:nameOf(x)})));
+  const opts=items.map(o=>`<label class="opt"><input type="radio" class="jtransfer" name="tr_${esc(r.audio_file_id)}" value="${esc(o.id)}" ${cur===o.id?"checked":""} onchange="syncCount(this.closest('.picker'))"> ${esc(o.nm)}</label>`).join("");
+  const n=cur?1:0;
+  return `<div class="picker single" data-k="transfer">
+    <button type="button" class="pbtn" onclick="togglePanel(this.closest('.picker'))"><span class="lab"><span class="glab">${t("path_s")}</span></span> <span class="cv"><span class="cnt${n?"":" zero"}">${n}</span> ▾</span></button>
+    <div class="panel"><div class="ptitle">${t("pick_one")}</div>${opts}</div></div>`;
+}
+function togglePanel(picker){ const was=picker.classList.contains("open"); document.querySelectorAll(".picker").forEach(x=>x.classList.remove("open")); if(!was) picker.classList.add("open"); }
+function syncCount(picker){ let n; if(picker.dataset.k==="transfer"){ const s=picker.querySelector("input:checked"); n=(s&&s.value)?1:0; } else { n=picker.querySelectorAll("input:checked").length; } const c=picker.querySelector(".cnt"); c.textContent=n; c.classList.toggle("zero",n===0); }
+function rKind(x){ return (x.acceptable===false)?"bad":(PROV.has(x.id)?"warn":"ok"); }
+function ratingPicker(r){
+  const cur=r.rating_id||"";
+  const opts=(LISTS.ratings||[]).map(x=>`<label class="opt opt-${rKind(x)}"><input type="radio" class="jrating" name="rt_${esc(r.audio_file_id)}" value="${esc(x.id)}" data-acc="${x.acceptable}" ${cur===x.id?"checked":""} onchange="onRatingPick(this)"> ${esc(nameOf(x))}</label>`).join("");
+  const curObj=(LISTS.ratings||[]).find(x=>x.id===cur);
+  const kc=curObj?rKind(curObj):"";
+  const curName=cur?ratingName(cur):t("choose");
+  return `<div class="picker single rating" data-k="rating">
+    <button type="button" class="pbtn" onclick="togglePanel(this.closest('.picker'))"><span class="lab"><span class="glab">${t("rating_s")}:</span> <span class="rcur ${kc}">${esc(curName)}</span></span> <span class="cv">▾</span></button>
+    <div class="panel"><div class="ptitle">${t("pick_one")}</div>${opts}</div></div>`;
+}
+function onRatingPick(input){
+  const picker=input.closest(".picker");
+  const kind=input.dataset.acc==="false"?"bad":(PROV.has(input.value)?"warn":"ok");
+  const rc=picker.querySelector(".rcur"); rc.textContent=ratingName(input.value); rc.className="rcur "+kind;
+  const panel=input.closest(".judge"); const rejected=input.dataset.acc==="false"; const sp=panel.querySelector('.picker[data-k="stage"]');
+  if(sp){ sp.classList.toggle("disabled",rejected); if(rejected){ sp.querySelectorAll("input:checked").forEach(i=>i.checked=false); syncCount(sp); sp.classList.remove("open"); } }
+  picker.classList.remove("open");
+}
+function initBand(panel){ const c=panel.querySelector(".jrating:checked"); const sp=panel.querySelector('.picker[data-k="stage"]');
+  if(c && c.dataset.acc==="false" && sp) sp.classList.add("disabled"); }
 function judgeHtml(r){
-  const ratings=(LISTS.ratings||[]).map(x=>`<option value="${esc(x.id)}" data-acc="${x.acceptable}" ${r.rating_id===x.id?"selected":""}>${esc(nameOf(x))}</option>`).join("");
-  const targets=(LISTS.targets||[]).map(x=>`<option value="${esc(x.id)}" ${r.transfer_to===x.id?"selected":""}>${esc(nameOf(x))}</option>`).join("");
-  const sIds=r.stage_ids||[], dIds=r.defect_ids||[];
-  const stages=(LISTS.stages||[]).map(x=>`<label><input type="checkbox" class="jstage" value="${esc(x.id)}" ${sIds.indexOf(x.id)>=0?"checked":""}>${esc(nameOf(x))}</label>`).join("");
-  const defects=(LISTS.defects||[]).map(x=>`<label><input type="checkbox" class="jdefect" value="${esc(x.id)}" ${dIds.indexOf(x.id)>=0?"checked":""}>${esc(nameOf(x))}</label>`).join("");
   const canApprove = hasRole("approver")||hasRole("admin");
   const canTransfer = hasRole("reviewer")||hasRole("approver")||hasRole("admin");
+  const stagesP=multiPicker("stage", t("stages_s"), LISTS.stages||[], r.stage_ids||[]);
+  const defectsP=multiPicker("defect", t("defects_s"), LISTS.defects||[], r.defect_ids||[]);
+  const transferP=canTransfer?transferPicker(r):"";
   return `
-    <div><button class="ghost mini" onclick="play('${esc(r.audio_file_id)}')">${t("listen")}</button>
-      <span class="err jplayerr"></span><audio class="jaud hide" controls></audio></div>
-    <div class="grid2" style="margin-top:12px">
-      <div><label>${t("rating")}</label><select class="jrating" onchange="onRatingChange(this)"><option value="">${t("choose")}</option>${ratings}</select></div>
-      <div><label>${t("transfer")}</label><select class="jtransfer"><option value="">${t("none")}</option>${targets}</select></div>
+    <div class="row-fields">
+      <div class="wave">
+        <button type="button" class="play" onclick="play('${esc(r.audio_file_id)}')" title="${t("listen")}">▶</button>
+        <canvas class="wavebox jwave hide" width="300" height="60"></canvas>
+        <span class="err jplayerr"></span>
+      </div>
+      <audio class="jaud" style="display:none"></audio>
+      ${ratingPicker(r)}
+      ${stagesP}${defectsP}${transferP}
     </div>
-    <div style="margin-top:12px"><label class="jstageslabel">${t("stages")}</label><div class="checks">${stages}</div></div>
-    <div style="margin-top:12px"><label>${t("defects")}</label><div class="checks">${defects}</div></div>
-    <div style="margin-top:12px"><label>${t("note")}</label><textarea class="jnote">${esc(r.judgment_note||"")}</textarea></div>
-    <div style="margin-top:14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap">
-      <button class="primary" onclick="submitJudgment('${esc(r.audio_file_id)}')">${t("save")}</button>
-      ${canApprove?`<button class="ghost" onclick="approveFile('${esc(r.audio_file_id)}')">${t("approve")}</button>`:""}
-      ${canTransfer?`<button class="ghost" onclick="doTransfer('${esc(r.audio_file_id)}')">${t("doTransfer")}</button>`:""}
-      <span class="jmsg"></span>
+    <div class="row-act">
+      <div class="note"><input class="jnote" type="text" value="${esc(r.judgment_note||"")}" placeholder="${t("noteph")}"></div>
+      <button type="button" class="save" onclick="submitJudgment('${esc(r.audio_file_id)}')">${t("save")}</button>
+      ${canApprove?`<button type="button" class="ghost" onclick="approveFile('${esc(r.audio_file_id)}')">${t("approve")}</button>`:""}
+      ${canTransfer?`<button type="button" class="ghost" onclick="doTransfer('${esc(r.audio_file_id)}')">${t("doTransfer")}</button>`:""}
+      <span class="jmsg ok"></span>
     </div>
     <div class="err jerr" style="margin-top:8px"></div>
-    <div class="jhist" style="margin-top:12px"></div>
-    <div class="jcomments" style="margin-top:12px"></div>`;
+    <div class="row-foot">
+      <div class="jhist"></div>
+      <div class="jcomments"></div>
+    </div>`;
 }
-function onRatingChange(sel){
-  if(!sel) return; const panel=sel.closest(".judge");
-  const opt=sel.options[sel.selectedIndex]; const acc=!opt||opt.dataset.acc!=="false";
-  panel.querySelectorAll(".jstage").forEach(c=>{ if(!acc) c.checked=false; c.disabled=!acc; });
-  panel.querySelector(".jstageslabel").textContent = acc?t("stages"):t("stages_no");
-}
+let AC=null;
 async function play(id){
   const panel=document.getElementById("judge_"+cssid(id)); const errEl=panel.querySelector(".jplayerr"); errEl.textContent="";
-  const r=QUEUE.find(x=>x.audio_file_id===id);
-  try{ const s=await api("POST","/storage/v1/object/sign/"+r.bucket+"/"+r.path,{body:{expiresIn:600}});
-    const a=panel.querySelector(".jaud"); a.src=PROJECT_URL+"/storage/v1"+s.signedURL; a.classList.remove("hide"); a.play().catch(()=>{});
+  const r=QUEUE.find(x=>x.audio_file_id===id); const a=panel.querySelector(".jaud");
+  try{
+    const s=await api("POST","/storage/v1/object/sign/"+r.bucket+"/"+r.path,{body:{expiresIn:600}});
+    const url=PROJECT_URL+"/storage/v1"+s.signedURL;
+    try{
+      const resp=await fetch(url); const buf=await resp.arrayBuffer();
+      a.src=URL.createObjectURL(new Blob([buf]));
+      drawWave(panel.querySelector(".jwave"), buf.slice(0));
+    }catch(_){ a.src=url; }    // fetch/decode blocked -> plain playback, no waveform
+    a.play().catch(()=>{});
   }catch(e){ errEl.textContent=e.message; }
+}
+async function drawWave(canvas, buf){
+  if(!canvas) return;
+  try{
+    AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+    const audio=await AC.decodeAudioData(buf);
+    const ch=audio.getChannelData(0), W=canvas.width, H=canvas.height, mid=H/2, ctx=canvas.getContext("2d");
+    const step=Math.max(1, Math.floor(ch.length/W));
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle=(getComputedStyle(document.documentElement).getPropertyValue("--blue").trim())||"#3a6ea5";
+    for(let x=0;x<W;x++){ let mn=1,mx=-1; for(let j=0;j<step;j++){ const v=ch[x*step+j]; if(v==null) break; if(v<mn)mn=v; if(v>mx)mx=v; }
+      if(mn>mx){mn=0;mx=0;} ctx.fillRect(x, mid+mn*mid, 1, Math.max(1,(mx-mn)*mid)); }
+    canvas.classList.remove("hide");
+  }catch(_){ canvas.classList.add("hide"); }
 }
 async function submitJudgment(id){
   const panel=document.getElementById("judge_"+cssid(id)); const errEl=panel.querySelector(".jerr"), msgEl=panel.querySelector(".jmsg");
   errEl.textContent=""; msgEl.textContent="";
   const r=QUEUE.find(x=>x.audio_file_id===id);
-  const rating=panel.querySelector(".jrating").value;
+  const rSel=panel.querySelector(".jrating:checked"); const rating=rSel?rSel.value:"";
   if(!rating){ errEl.textContent=LANG==="ar"?"اختر تقييماً أولاً.":"Choose a rating first."; return; }
+  const trSel=panel.querySelector(".jtransfer:checked");
   const body={ p_product:PRODUCT, p_audio_file:id, p_rating:rating,
     p_stages:[...panel.querySelectorAll(".jstage:checked")].map(c=>c.value),
     p_defects:[...panel.querySelectorAll(".jdefect:checked")].map(c=>c.value),
-    p_note:panel.querySelector(".jnote").value||null, p_transfer:panel.querySelector(".jtransfer").value||null,
+    p_note:panel.querySelector(".jnote").value||null, p_transfer:(trSel&&trSel.value)?trSel.value:null,
     p_expected_version:(r.version!==undefined?r.version:null) };
   try{ const jid=await api("POST","/rest/v1/rpc/judge_audio",{body});
     msgEl.innerHTML=`<span class="ok">${t("saved")} ${esc(jid)}</span>`;
@@ -517,7 +683,7 @@ async function approveFile(id){
 async function doTransfer(id){
   const panel=document.getElementById("judge_"+cssid(id)); const errEl=panel.querySelector(".jerr"), msgEl=panel.querySelector(".jmsg");
   errEl.textContent="";
-  const tgt=panel.querySelector(".jtransfer").value;
+  const trSel=panel.querySelector(".jtransfer:checked"); const tgt=trSel?trSel.value:"";
   if(!tgt){ errEl.textContent=LANG==="ar"?"اختر هدف التحويل أولاً.":"Choose a transfer target first."; return; }
   try{ const made=await api("POST","/rest/v1/rpc/transfer_path",{body:{p_product:PRODUCT,p_audio_file:id,p_target:tgt}});
     msgEl.innerHTML=`<span class="ok">${(LANG==="ar"?"أُنشئ: ":"created: ")+esc((made||[]).join(", "))}</span>`;
@@ -527,7 +693,7 @@ async function refreshOne(id){
   try{ const rows=await api("GET", queuePath(activeReg())+"&audio_file_id=eq."+encodeURIComponent(id));
     if(rows&&rows.length){ const i=QUEUE.findIndex(x=>x.audio_file_id===id);
       if(i>=0){ QUEUE[i]=rows[0]; const row=document.getElementById("row_"+cssid(id));
-        if(row){ const r=rows[0]; row.querySelector(".st").textContent=r.state_id;
+        if(row){ const r=rows[0]; row.querySelector(".st").textContent=stateName(r.state_id);
           row.querySelectorAll(".tag").forEach(e=>e.remove());
           row.insertAdjacentHTML("beforeend", stTag(r.standing).trim()); } } }
     const panel=document.getElementById("judge_"+cssid(id)); if(panel) loadHistory(id, panel.querySelector(".jhist"));
@@ -537,15 +703,19 @@ async function loadHistory(id, el){
   if(!el) return;
   try{ const rows=await api("GET","/rest/v1/v_judgment_history?audio_file_id=eq."+encodeURIComponent(id)+
       "&select=id,rating_id,provisional,stage_ids,defect_ids,note,transfer_to,judged_by_name,judged_at,origin,still_holds&order=id.desc&limit=6");
-    if(!rows.length){ el.innerHTML=`<div class="hist">${t("nohist")}</div>`; return; }
-    el.innerHTML=`<div class="muted" style="margin-bottom:4px">${t("lasthist")}</div>`+rows.map(h=>{
-      const when=h.judged_at?String(h.judged_at).replace("T"," ").slice(0,16):"";
+    if(!rows.length){ el.innerHTML=`<div class="histsum muted">${t("nohist")}</div>`; return; }
+    const n=rows.length, last=rows[0], lastWhen=fmtTime(last.judged_at);
+    const label = n===1?t("j_once") : n===2?t("j_twice") : t("j_many").replace("{n}",n);
+    const summary = label + (lastWhen?` · ${t("histLast")} ${esc(lastWhen)}`:"");
+    const details = rows.map(h=>{
+      const when=fmtTime(h.judged_at);
       return `<div class="hist">#${esc(h.id)} · ${esc(ratingName(h.rating_id))}${h.provisional?" ("+t("prov")+")":""} · ${h.still_holds?t("holds"):t("fell")}`+
         ((h.stage_ids||[]).length?" · "+esc(h.stage_ids.join(", ")):"")+
         ((h.defect_ids||[]).length?" · "+esc(h.defect_ids.join(", ")):"")+
         (h.transfer_to?" · "+esc(h.transfer_to):"")+(h.note?" · "+esc(h.note):"")+
         ` · ${esc(h.origin)}${when?" · "+esc(when):""}</div>`;
     }).join("");
+    el.innerHTML=`<div class="histsum" onclick="this.parentNode.querySelector('.histdetails').classList.toggle('hide'); this.classList.toggle('open')"><span class="arrow">▾</span> ${summary}</div><div class="histdetails hide">${details}</div>`;
   }catch(e){ el.innerHTML=`<div class="err">${esc(e.message)}</div>`; }
 }
 
@@ -719,13 +889,12 @@ async function loadComments(id, el){
   try{
     const rows=await api("GET","/rest/v1/v_review_comments?product_id=eq."+PRODUCT+"&table_name=eq.audio_files&row_key=eq."+
       encodeURIComponent(id)+"&select=id,body,author_name,created_at,resolved_at,resolver_name&order=id.asc");
-    let h=`<label>${t("comments")}</label>`;
-    h+= rows.length ? rows.map(c=>`<div class="hist">${esc(c.author_name||"")}: ${esc(c.body)}`+
+    let body= rows.length ? rows.map(c=>`<div class="hist">${esc(c.author_name||"")}: ${esc(c.body)}`+
         (c.resolved_at?` · <span class="ok">${t("resolved")}</span>`:` · <button class="mini ghost" onclick="resolveComment(${c.id},'${esc(id)}')">${t("resolve")}</button>`)+`</div>`).join("")
       : `<div class="hist">${t("noComments")}</div>`;
-    h+=`<div style="display:flex; gap:8px; margin-top:8px"><input class="jcbody" placeholder="${t("addComment")}">`+
+    body+=`<div style="display:flex; gap:8px; margin-top:8px"><input class="jcbody" placeholder="${t("addComment")}">`+
        `<button class="ghost mini" onclick="addComment('${esc(id)}')">${t("addComment")}</button></div><div class="err jcerr"></div>`;
-    el.innerHTML=h;
+    el.innerHTML=`<button type="button" class="cbtn" onclick="this.nextElementSibling.classList.toggle('hide'); this.classList.toggle('open')">${t("cmtBtn")} (${rows.length})</button><div class="cpanel hide">${body}</div>`;
   }catch(_){ el.innerHTML=""; }   // 0014 not applied -> comments stay hidden
 }
 async function addComment(id){
@@ -796,6 +965,7 @@ async function revokeInvite(id){
 // ---------------- boot ----------------
 if(!cfgReady()){ document.getElementById("cfgNotice").classList.remove("hide"); }
 applyLang();
+document.addEventListener("click",function(e){ if(!e.target.closest(".picker")) document.querySelectorAll(".picker.open").forEach(x=>x.classList.remove("open")); });
 </script>
 </body>
 </html>
