@@ -36,7 +36,7 @@
   /* Based on the app's default Navy theme */
   --navy:#12325D; --blue:#2A74C8; --blue-soft:#9CC4EE; --tint:#E6F0FB; --line-l:#C9DCF2; --muted-l:#4F6E92;
   --bg:#F6F9FD; --surface:#FFFFFF; --text:var(--navy); --text-2:var(--muted-l);
-  --line:var(--line-l); --accent:var(--blue); --card-tint:var(--tint);
+  --line:var(--line-l); --accent:var(--blue); --card-tint:var(--tint); --icon-ring:var(--line-l);
   --tagline:#1F4D86; --glow:rgba(42,116,200,.16); --sea:#6FA0D4; --sea-hi:#A9CBEA; --sea-lo:#3D6FA8; --shine:.42; --land:#C5DAF0; --coast:rgba(255,255,255,.65); --arab:#DCE9F6; --arab-line:rgba(255,255,255,.9); --edge:rgba(47,90,138,.35); --orbit:rgba(58,110,165,.5); --letter:#2C4868; --letter-s:rgba(44,72,104,.6); --sub:#1F3A5C; --sub-line:rgba(255,255,255,.7); --land:#A3C3E3; --coast:rgba(255,255,255,.6); --arab:#C6DAEE; --arab-line:rgba(255,255,255,.95); --edge:rgba(23,40,61,.3); --orb-hi:#9CC3EA; --orb-mid:#5E98D0; --orb-lo:#2F5A8A;
   --ring:rgba(42,116,200,.26); --dot:#2A74C8; --dot-halo:rgba(42,116,200,.10); --hatch:rgba(42,116,200,.12); --wave:rgba(42,116,200,.22);
   /* --font-main never changes with the language: the name Asasly uses it everywhere.
@@ -50,14 +50,14 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#0F141C; --surface:#18202C; --text:#E8EFF8; --text-2:#A3B6CC;
-    --line:#2E3A4E; --accent:#5AA9F0; --card-tint:#1D2736;
+    --line:#2E3A4E; --accent:#5AA9F0; --card-tint:#1D2736; --icon-ring:transparent;
     --tagline:#D6E4F4; --glow:rgba(90,169,240,.22); --sea:#3C74B1; --sea-hi:#7FAEDB; --sea-lo:#1F4676; --shine:.3; --land:#9BBCE0; --coast:rgba(255,255,255,.55); --arab:#C3D8EE; --arab-line:rgba(255,255,255,.9); --edge:rgba(255,255,255,.3); --orbit:rgba(157,185,218,.55); --letter:#17283D; --letter-s:rgba(23,40,61,.7); --sub:#F6F9FD; --sub-line:rgba(15,26,40,.6); --land:#7FA6CE; --coast:rgba(255,255,255,.55); --arab:#A7C4E2; --arab-line:rgba(255,255,255,.95); --edge:rgba(5,12,24,.4); --orb-hi:#6E9FD2; --orb-mid:#3A6EA5; --orb-lo:#1D3A5E;
     --ring:rgba(90,169,240,.22); --dot:#5AA9F0; --dot-halo:rgba(90,169,240,.12); --hatch:rgba(90,169,240,.10); --wave:rgba(90,169,240,.22);
   }
 }
 :root[data-theme="dark"]{
   --bg:#0F141C; --surface:#18202C; --text:#E8EFF8; --text-2:#A3B6CC;
-  --line:#2E3A4E; --accent:#5AA9F0; --card-tint:#1D2736;
+  --line:#2E3A4E; --accent:#5AA9F0; --card-tint:#1D2736; --icon-ring:transparent;
   --tagline:#D6E4F4; --glow:rgba(90,169,240,.22); --sea:#3C74B1; --sea-hi:#7FAEDB; --sea-lo:#1F4676; --shine:.3; --land:#9BBCE0; --coast:rgba(255,255,255,.55); --arab:#C3D8EE; --arab-line:rgba(255,255,255,.9); --edge:rgba(255,255,255,.3); --orbit:rgba(157,185,218,.55); --letter:#17283D; --letter-s:rgba(23,40,61,.7); --sub:#F6F9FD; --sub-line:rgba(15,26,40,.6); --land:#7FA6CE; --coast:rgba(255,255,255,.55); --arab:#A7C4E2; --arab-line:rgba(255,255,255,.95); --edge:rgba(5,12,24,.4); --orb-hi:#6E9FD2; --orb-mid:#3A6EA5; --orb-lo:#1D3A5E;
     --ring:rgba(90,169,240,.22); --dot:#5AA9F0; --dot-halo:rgba(90,169,240,.12); --hatch:rgba(90,169,240,.10); --wave:rgba(90,169,240,.22);
 }
@@ -155,6 +155,8 @@ body{overflow-x:clip}   /* the orbit canvas is a little wider than its box; noth
 :root[dir="rtl"] .product .go svg{transform:scaleX(-1)}
 .product .app-icon{display:block; width:72px; height:72px; margin:0 auto 12px}
 .product .app-icon img{width:100%; height:100%; border-radius:22%}
+/* 8 Nov 2026 (Tamer, option 1): a thin ring in the card-line colour so the white icon tile shows on the light card; none in dark */
+.product .app-icon:not(.placeholder) img{box-shadow:0 0 0 1px var(--icon-ring)}
 .product .app-icon.placeholder img{border-radius:50%; opacity:.35; filter:saturate(.6)}
 /* planned apps: name and status only, so their cards are a little smaller */
 .product:not(.is-first){padding-block:12px}
