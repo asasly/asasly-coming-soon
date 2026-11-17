@@ -250,6 +250,14 @@ footer a{color:var(--text-2); text-decoration:none} footer a:hover{color:var(--t
 .sharetip{position:fixed;z-index:60;display:flex;align-items:center;gap:5px;padding:4px 11px 4px 9px;border-radius:6px;background:var(--bg,#F6F9FD);color:var(--text-2,#4F6E92);font-size:12.5px;font-weight:500;line-height:18px;white-space:nowrap;opacity:0;transform:translateY(-4px);transition:opacity .15s,transform .15s;pointer-events:none}.sharetip.on{opacity:1;transform:none}.sharetip svg{width:13px;height:13px;flex:none;color:#2FA463}
 .sharebox{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}.sharebox button{display:grid;place-items:center;width:30px;height:28px;padding:0;border:0;background:transparent;color:var(--text-2);cursor:pointer}.sharebox button svg{width:16px;height:16px}.sharebox button:hover{color:var(--text)}.sharebox button:focus-visible{outline:2px solid var(--accent,#3492EC);outline-offset:-3px}.sharebox .i-done{display:none}.sharebox button.done .i-share{display:none}.sharebox button.done .i-done{display:block;color:var(--accent,#3492EC)}@media (max-width:640px){.sharebox button{width:27px;height:28px}}
 @media (max-width:480px){.bar-end{gap:6px}.sharebox button{width:27px;height:26px}.sharebox button svg{width:15px;height:15px}#langCurrent{max-width:calc(100vw - 278px)}}
+
+/* Turning hamza 43 in the hero (17 Nov 2026, Tamer's word): one full turn on load, then the still mark; none under reduced motion. */
+.hero-logo img.turn{position:absolute; left:13.97%; top:3.12%; width:72.33%; height:auto; opacity:0; transition:opacity .25s; pointer-events:none}
+.hero-logo .sym{transition:opacity .25s}
+.hero-logo.turning img.turn{opacity:1}
+.hero-logo.turning .sym{opacity:0}
+.hero-logo.turning.settle img.turn{opacity:0}
+.hero-logo.turning.settle .sym{opacity:1}
 </style>
 </head>
 <body>
@@ -830,5 +838,14 @@ window.addEventListener("resize", fitName);
 })();
 </script>
 <script>(function(){const SHARE_V="18";const URL0="https://asasly.com/";const b=document.getElementById("shareBtn");if(!b)return;const L={en:"Share",ar:"مشاركة",fr:"Partager",es:"Compartir",pt:"Compartilhar",de:"Teilen",ru:"Поделиться",tr:"Paylaş",id:"Bagikan",fa:"اشتراک‌گذاری",ur:"شیئر کریں",hi:"साझा करें",bn:"শেয়ার করুন",zh:"分享"};function lbl(){const t=L[(document.documentElement.lang||"en").slice(0,2)]||L.en;b.setAttribute("aria-label",t);b.title=t}lbl();new MutationObserver(lbl).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});const C={en:"Copied",ar:"تم النسخ",fr:"Copié",es:"Copiado",pt:"Copiado",de:"Kopiert",ru:"Скопировано",tr:"Kopyalandı",id:"Disalin",fa:"کپی شد",ur:"کاپی ہو گیا",hi:"कॉपी हो गया",bn:"কপি হয়েছে",zh:"已复制"};let tip,tt;function done(){b.classList.add("done");if(!tip){tip=document.createElement("div");tip.className="sharetip";tip.setAttribute("role","status");document.body.appendChild(tip)}const lg=(document.documentElement.lang||"en").slice(0,2);tip.dir=["ar","fa","ur"].includes(lg)?"rtl":"ltr";tip.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';tip.appendChild(document.createTextNode(C[lg]||C.en));const r=b.getBoundingClientRect();tip.style.top=(r.bottom+8)+"px";tip.style.left="0px";const w=tip.offsetWidth;let x=r.left+r.width/2-w/2;x=Math.max(8,Math.min(x,innerWidth-w-8));tip.style.left=x+"px";requestAnimationFrame(()=>tip.classList.add("on"));clearTimeout(tt);tt=setTimeout(()=>{b.classList.remove("done");tip.classList.remove("on")},1800)}b.addEventListener("click",async()=>{const url=URL0+"?v="+SHARE_V;const mobile=matchMedia("(pointer:coarse)").matches;if(mobile&&navigator.share){try{await navigator.share({title:document.title,url:url});}catch(e){}return}try{await navigator.clipboard.writeText(url);done()}catch(e){const t=document.createElement("textarea");t.value=url;document.body.appendChild(t);t.select();try{document.execCommand("copy");done()}catch(_){}t.remove()}});})();</script>
-</body>
+<script>
+// Turning hamza 43: loads after the page, turns once (60 frames x 40 ms), then hands back to the still mark.
+(function(){var h=document.querySelector('.hero-logo');if(!h)return;
+try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return}catch(e){}
+var t=new Image();t.className='turn';t.alt='';
+t.onload=function(){h.appendChild(t);requestAnimationFrame(function(){h.classList.add('turning')});
+setTimeout(function(){h.classList.add('settle')},2450);
+setTimeout(function(){h.classList.remove('turning','settle');t.remove()},2800)};
+t.src='/hamza43-turn.webp';})();
+</script></body>
 </html>
